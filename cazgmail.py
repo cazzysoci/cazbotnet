@@ -4,7 +4,7 @@ from googleapiclient.discovery import build
 from google.oauth2.credentials import Credentials
 
 def fetch_gmails(domain):
-    creds = Credentials.from_authorized_user_file('credentials.json')  # Path to your Gmail API credentials file
+    creds = Credentials.from_authorized_user_file('client_secret_22198081949-7240a7iipe7c1bo0juk1sa04qoch5abq.apps.googleusercontent.com.json')  # Path to your Gmail API credentials file
     service = build('gmail', 'v1', credentials=creds)
 
     results = service.users().list(userId='me', q=f'from:*@{domain}').execute()
