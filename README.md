@@ -1,5 +1,5 @@
-git clone https://github.com/cazzysoci/cazgmail.git
+git clone https://github.com/cazzysoci/cazbotnet.git
 
-cd cazgmail
+cd cazbotnet
 
-python3 cazgmail.py
+python3 cazbotnet.py
