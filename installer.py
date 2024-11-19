@@ -1,6 +1,7 @@
 import os
 import sys
 
+os.system('pip3 install -U trio')
 os.system('pkg install openjdk-17')
 os.system('pkg install nodejs-lts')
 os.system('pkg install qb64')
