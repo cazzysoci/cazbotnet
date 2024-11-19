@@ -65,5 +65,5 @@ python3 scrape.py
 - Internet Speed Minimum 30mbps.
 
 ## Disclaimer :
-- This tool only for Education, Pentesting, and Research Purposes!
+- This tool is only for Educational purposes only, Pentesting, and Research Purposes. We are not responsible for the misuse of this tool!
 - cazbotnet Power depends from your Device Specs. So please Do not blame this script if it does not give power if your phone sucks.
