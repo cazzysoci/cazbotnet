@@ -52,6 +52,14 @@ nodejs -v
 ```
 python3 scrape.py
 ```
+
+### If problem with trio Error, install pip3 :
+```
+pip3 install -U trio
+or
+pip install -U 'trio<0.20'
+```
+
 ### OS Support :
 - Debian.
 - Ubuntu (Recommended).
