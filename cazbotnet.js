@@ -19,13 +19,13 @@ if (process.argv.length < 0x7) {
     console.log("   ");
   }
   if (process.argv.length < 0x7) {
-    console.log("         [0m   ___                 ___          _  ");
+    console.log("         [0m   ___                 ___          _   ");
   }
   if (process.argv.length < 0x7) {
-    console.log("         [0m  / __|__ _ _______  _/ __| ___  __(_)   ");
+    console.log("         [0m  / __|__ _ _______  _/ __| ___  __(_)  ");
   }
   if (process.argv.length < 0x7) {
-    console.log("         [0m | (__/ _` |_ /_ / || \__ \/ _ \/ _| |       ");
+    console.log("         [0m | (__/ _` |_ /_ / || \__ \/ _ \/ _| |  ");
   }
   if (process.argv.length < 0x7) {
     console.log("         [0m  \___\__,_/__/__|\_, |___/\___/\__|_|   ");
