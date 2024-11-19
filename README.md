@@ -53,7 +53,7 @@ nodejs -v
 python3 scrape.py
 ```
 
-### If problem with trio Error, install pip3 :
+### If problem with trio Error, install pip3 trio :
 ```
 pip3 install -U trio
 or
