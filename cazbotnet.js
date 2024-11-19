@@ -177,7 +177,7 @@ if (cluster.isMaster) {
   console.log("[31m-> [0mThread[33m ⚙️  : [32m" + process.argv[0x5]);
   console.log("[31m-> [0mProxyFile[33m 🗃 : [32m" + process.argv[0x6]);
   console.log("[33m--------------------------------------------");
-  console.log("[31m-> [0mGithub[33m 🗂 : [32mhttps://github.com/TrashDono");
+  console.log("[31m-> [0mGithub[33m 🗂 : [32mhttps://github.com/cazzysoci");
   console.log("[31m-> [0mCheck-Host[33m 🗂 :  [32mhttps://check-host.net/check-http?host=" + process.argv[0x2]);
   console.log("[33m--------------------------------------------");
   const restartScript = () => {
