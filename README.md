@@ -1,15 +1,6 @@
-# MegaMedusa Machine Layer-7 DDoS Tool v3.2
+# cazbotnet DDOS
 
-## MegaMedusa V3.2 Main Display :
- ![Main](maindisplay.jpg)
-
-### What is MegaMedusa?
-- MegaMedusa is NodeJS DDoS Machine Layer-7 provided by RipperSec Team.
-
-### News About MegaMedusa :
-- https://www.radware.com/blog/security/2024/08/megamedusa-rippersec-public-web-ddos-attack-tool/
-  
- ### Security that MegaMedusa can bypass :
+ ### Security that cazbotnet can bypass :
 - UAM Challenges Bypass ✅
 - Cloudflare NoSec ✅
 - DDoS Guard Bypass ✅
@@ -34,8 +25,8 @@
 
 ### Usage :
 ```
-Usage: node MegaMedusa.js <link> <time> <rps> <threads> <proxy> 
-Example: node MegaMedusa.js https://example.com 500 30 10 proxy.txt 
+Usage: node cazbotnet.js <link> <time> <rps> <threads> <proxy> 
+Example: node cazbotnet.js https://example.com 500 30 10 proxy.txt 
 ```
 
 ### Instructions :
@@ -73,15 +64,6 @@ python3 scrape.py
 - 2 Core.
 - Internet Speed Minimum 30mbps.
 
-## Refference :
-<a href="https://t.me/RipperSec"><img title="Telegram" src="https://img.shields.io/badge/RipperSec-blue?style=for-the-badge&logo=telegram"></a>
-
-## If you want to donate, click on the button :
-<a href="https://sociabuzz.com/kudagila/donate"><img title="Donate" src="https://img.shields.io/badge/Donate-KudaGila-yellow?style=for-the-badge&logo=github"></a>
-```
-bc1q5z9kccxvwcx6dk9hsmezvhfg8yqjyj0hs3v52v (BTC)
-```
-
 ## Disclaimer :
 - This tool only for Education, Pentesting, and Research Purposes!
-- MegaMedusa Power depends from your Device Specs. Don't blame this script not power if your phone sucks.
+- cazbotnet Power depends from your Device Specs. So please Do not blame this script if it does not give power if your phone sucks.
