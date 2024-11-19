@@ -19,7 +19,7 @@ if (process.argv.length < 0x7) {
     console.log("   ");
   }
   if (process.argv.length < 0x7) {
-    console.log("         [0m ___                 ___          _ ");
+    console.log("         [0m  ___                 ___          _ ");
   }
   if (process.argv.length < 0x7) {
     console.log("         [0m / __|__ _ _______  _/ __| ___  __(_)   ");
