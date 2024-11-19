@@ -19,10 +19,10 @@ if (process.argv.length < 0x7) {
     console.log("   ");
   }
   if (process.argv.length < 0x7) {
-    console.log("         [0m __             __                 ");
+    console.log("         [0m __             __ ");
   }
   if (process.argv.length < 0x7) {
-    console.log("         [0m/   _  _  _  \/(_  _  _  o   ");
+    console.log("         [0m/   _  _  _  \/(_  _  _  o  ");
   }
   if (process.argv.length < 0x7) {
     console.log("         [0m\__(_| /_ /_ / __)(_)(_  |       ");
