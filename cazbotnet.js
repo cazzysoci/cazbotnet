@@ -51,7 +51,7 @@ if (process.argv.length < 0x7) {
     console.log("[0m[34m[[1m[0m![0m[34m][1m[0m[1m[0m Made by [1m[31mCazzySoci");
   }
   if (process.argv.length < 0x7) {
-    console.log("[0m[34m[[1m[0m![0m[34m][1m[0m[1m[0m Update your proxy every 1 week :[1m[33m node scraper.js[1m[0m");
+    console.log("[0m[34m[[1m[0m![0m[34m][1m[0m[1m[0m Update your proxy every 1 week :[1m[33m python3 scrape.py[1m[0m");
   }
   process.exit();
 
