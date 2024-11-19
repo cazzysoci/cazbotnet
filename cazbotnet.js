@@ -51,7 +51,7 @@ if (process.argv.length < 0x7) {
     console.log("   ");
   }
   if (process.argv.length < 0x7) {
-    console.log("[0m[34m[[1m[0m![0m[34m][1m[0m[1m[0m node[1m[33m Medusa [1m[32m<HOST> <TIME> <RPS> <THREADS> <PROXY>.");
+    console.log("[0m[34m[[1m[0m![0m[34m][1m[0m[1m[0m node[1m[33m cazbotnet [1m[32m<HOST> <TIME> <RPS> <THREADS> <PROXY>.");
   }
   if (process.argv.length < 0x7) {
     console.log("[0m[34m[[1m[0m![0m[34m][1m[0m[1m[0m Made by [1m[31mCazzySoci");
