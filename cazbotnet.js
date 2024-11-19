@@ -36,8 +36,6 @@ if (process.argv.length < 0x7) {
   if (process.argv.length < 0x7) {
     console.log(" [0;33m           ║   [0mGithub : [32mhttps://github.com/cazzysoci    [0;33m║  ");
   }
-
-  }
   if (process.argv.length < 0x7) {
     console.log(" [0;33m           ╚════════════════════════════════════════════╝");
   }
@@ -54,7 +52,7 @@ if (process.argv.length < 0x7) {
     console.log("[0m[34m[[1m[0m![0m[34m][1m[0m[1m[0m Update your proxy every 1 week :[1m[33m python3 scrape.py[1m[0m");
   }
   process.exit();
-
+}
 const headers = {};
 function readLines(_0x8d3d0e) {
   return fs.readFileSync(_0x8d3d0e, "utf-8").toString().split(/\r?\n/);
