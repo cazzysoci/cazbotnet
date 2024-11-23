@@ -60,6 +60,11 @@ or
 pip install -U 'trio<0.20'
 ```
 
+### If Error with httpx install this command :
+```
+sudo apt install python3-httpx
+```
+
 ### OS Support :
 - Debian.
 - Ubuntu (Recommended).
