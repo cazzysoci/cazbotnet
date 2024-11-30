@@ -12,6 +12,7 @@ fre = Fore.RESET
 
 list = [
 'https://raw.githubusercontent.com/roosterkid/openproxylist/main/HTTPS_RAW.txt',
+'https://raw.githubusercontent.com/TheSpeedX/SOCKS-List/master/socks5.txt',
 'https://raw.githubusercontent.com/TheSpeedX/PROXY-List/master/http.txt',
 'https://raw.githubusercontent.com/MuRongPIG/Proxy-Master/main/http.txt',
 'https://raw.githubusercontent.com/officialputuid/KangProxy/KangProxy/http/http.txt',
@@ -56,10 +57,10 @@ list = [
 'https://raw.githubusercontent.com/vakhov/fresh-proxy-list/refs/heads/master/https.txt',
 'https://raw.githubusercontent.com/MrMarble/proxy-list/refs/heads/main/all.txt',
 'https://raw.githubusercontent.com/berkay-digital/Proxy-Scraper/refs/heads/main/proxies.txt',
-"https://spys.one/free-proxy-list/",
-"https://www.proxy-list.download/api/v1/get?type=http&anon=elite&country=US",
-"https://www.proxy-list.download/api/v1/get?type=http&anon=transparent&country=US",
-"https://spys.me/socks.txt",
+'https://spys.one/free-proxy-list/',
+'https://www.proxy-list.download/api/v1/get?type=http&anon=elite&country=US',
+'https://www.proxy-list.download/api/v1/get?type=http&anon=transparent&country=US',
+'https://spys.me/socks.txt',
 'https://api.proxyscrape.com/v2/?request=getproxies&protocol=http',
 'https://www.freeproxychecker.com/result/http_proxies.txt',
 'https://api.proxyscrape.com/v2/?request=displayproxies&protocol=http&timeout=10000&country=all&ssl=all&anonymity=all',
@@ -81,10 +82,9 @@ list = [
 'https://raw.githubusercontent.com/saisuiu/Lionkings-Http-Proxys-Proxies/main/free.txt',
 'https://raw.githubusercontent.com/saisuiu/Lionkings-Http-Proxys-Proxies/main/cnfree.txt',
 'https://raw.githubusercontent.com/vakhov/fresh-proxy-list/master/http.txt',
-"https://raw.githubusercontent.com/TheSpeedX/SOCKS-List/master/socks5.txt",
-"https://raw.githubusercontent.com/hookzof/socks5_list/master/proxy.txt",
-"https://raw.githubusercontent.com/TuanMinPay/live-proxy/refs/heads/master/all.txt",
-"https://raw.githubusercontent.com/roosterkid/openproxylist/refs/heads/main/HTTPS_RAW.txt",
+'https://raw.githubusercontent.com/hookzof/socks5_list/master/proxy.txt',
+'https://raw.githubusercontent.com/TuanMinPay/live-proxy/refs/heads/master/all.txt',
+'https://raw.githubusercontent.com/roosterkid/openproxylist/refs/heads/main/HTTPS_RAW.txt',
 ]  
          
 
