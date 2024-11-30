@@ -128,7 +128,7 @@ if __name__ == "__main__":
     
         with open(file, 'r') as count:
             total = sum(1 for line in count)
-        print("\n{}( {}{} {}) {}Proxy Berhasil Di Unduh.". format(fw, fy, total, fw, fg))
+        print("\n{}( {}{} {}) {}Proxy successfully created.". format(fw, fy, total, fw, fg))
     
     except IndexError:
         sys.exit(1)
