@@ -99,7 +99,7 @@ if __name__ == "__main__":
             with open(file, 'a') as data:
                 for proxy in list:
                     data.write(httpx.get(proxy).text)
-                    print(" -| mengambil {}{}".format(fg, proxy))
+                    print(" -| installing proxy {}{}".format(fg, proxy))
         else:
             os.system('cls' if os.name == 'nt' else 'clear')
             with open(file, 'a') as data:
