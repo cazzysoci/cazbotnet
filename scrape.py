@@ -95,7 +95,7 @@ if __name__ == "__main__":
         if os.path.isfile(file):
             os.system('cls' if os.name == 'nt' else 'clear')
             os.remove(file)
-            print("{}File {} Sudah Ada!\n{}Memulai Mengunduh {} Yang Baru!\n".format(fr, file, fy, file))
+            print("{}File {} \n{}Wait {} file is still creating\n".format(fr, file, fy, file))
             with open(file, 'a') as data:
                 for proxy in list:
                     data.write(httpx.get(proxy).text)
