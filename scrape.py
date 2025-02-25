@@ -13,7 +13,7 @@ fre = Fore.RESET
 list = [
 'https://raw.githubusercontent.com/roosterkid/openproxylist/main/HTTPS_RAW.txt',
 'https://raw.githubusercontent.com/TheSpeedX/SOCKS-List/master/socks5.txt',
-'https://raw.githubusercontent.com/TheSpeedX/PROXY-List/master/http.txt',
+'https://raw.githubusercontent.com/TheSpeedX/SOCKS-List/master/http.txt',
 'https://raw.githubusercontent.com/MuRongPIG/Proxy-Master/main/http.txt',
 'https://raw.githubusercontent.com/officialputuid/KangProxy/KangProxy/http/http.txt',
 'https://raw.githubusercontent.com/prxchk/proxy-list/main/http.txt',
@@ -59,25 +59,6 @@ list = [
 'https://api.proxyscrape.com/v2/?request=displayproxies&protocol=http&timeout=10000&country=all&ssl=all&anonymity=all',
 'https://www.freeproxychecker.com/result/https_proxies.txt',
 'https://www.proxy-list.download/api/v1/get?type=http',
-'https://www.proxyscan.io/download?type=https',
-'https://spys.me/proxy.txt',
-'https://raw.githubusercontent.com/TheSpeedX/SOCKS-List/master/http.txt',
-'https://api.openproxylist.xyz/http.txt',
-'https://raw.githubusercontent.com/shiftytr/proxy-list/master/proxy.txt',
-'http://alexa.lr2b.com/proxylist.txt',
-'http://rootjazz.com/proxies/proxies.txt',
-'https://raw.githubusercontent.com/clarketm/proxy-list/master/proxy-list-raw.txt',
-'https://raw.githubusercontent.com/sunny9577/proxy-scraper/master/proxies.txt',
-'https://raw.githubusercontent.com/opsxcq/proxy-list/master/list.txt',
-'https://proxy-spider.com/api/proxies.example.txt',
-'https://multiproxy.org/txt_all/proxy.txt',
-'https://raw.githubusercontent.com/roosterkid/openproxylist/main/HTTPS_RAW.txt'
-'https://raw.githubusercontent.com/saisuiu/Lionkings-Http-Proxys-Proxies/main/free.txt',
-'https://raw.githubusercontent.com/saisuiu/Lionkings-Http-Proxys-Proxies/main/cnfree.txt',
-'https://raw.githubusercontent.com/vakhov/fresh-proxy-list/master/http.txt',
-'https://raw.githubusercontent.com/hookzof/socks5_list/master/proxy.txt',
-'https://raw.githubusercontent.com/TuanMinPay/live-proxy/refs/heads/master/all.txt',
-'https://raw.githubusercontent.com/roosterkid/openproxylist/refs/heads/main/HTTPS_RAW.txt',
 ]  
          
 
