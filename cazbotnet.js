@@ -222,6 +222,13 @@ const sig = [
              "rsa_pkcs1_sha384", 
              "rsa_pkcs1_sha512"];
 const pathts = [
+                "/homepage",
+                "?id=",
+                "?id",
+                "/#",
+                "/home",
+                "/home.php#",
+                "/home.php",
                 "?s=", 
                 "/?", 
                 '', 
