@@ -2,7 +2,7 @@ import os
 import sys
 
 os.system('apt install npm')
-os.system('sudo apt install curl ')
+os.system('sudo apt install curl')
 os.system('curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash')
 os.system('nvm install --lts')
 
