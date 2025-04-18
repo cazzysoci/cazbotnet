@@ -54,11 +54,6 @@ list = [
 'https://www.proxy-list.download/api/v1/get?type=http&anon=elite&country=US',
 'https://www.proxy-list.download/api/v1/get?type=http&anon=transparent&country=US',
 'https://spys.me/socks.txt',
-'https://api.proxyscrape.com/v2/?request=getproxies&protocol=http',
-'https://www.freeproxychecker.com/result/http_proxies.txt',
-'https://api.proxyscrape.com/v2/?request=displayproxies&protocol=http&timeout=10000&country=all&ssl=all&anonymity=all',
-'https://www.freeproxychecker.com/result/https_proxies.txt',
-'https://www.proxy-list.download/api/v1/get?type=http',
 ]  
          
 
