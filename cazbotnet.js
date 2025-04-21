@@ -8,6 +8,7 @@ const crypto = require("crypto");
 const axios = require('axios');
 const https = require('https');
 const childProcess = require('child_process');
+
 module.exports = function Cloudflare() {
   const privacypass = require('./privacypass'),
       cloudscraper = require('cloudscraper'),
