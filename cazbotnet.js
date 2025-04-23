@@ -1671,7 +1671,7 @@ const userAgents = [
   "Opera/9.80 (X11; Linux i686; U; en-GB) Presto/2.2.15 Version/10.00",
   "Opera/9.80 (X11; Linux i686; U; en) Presto/2.2.15 Version/10.00",
   "Opera/9.80 (X11; Linux i686; U; Debian; pl) Presto/2.2.15 Version/10.00",
- "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:137.0) Gecko/20100101 Firefox/137.0"];
+  "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:137.0) Gecko/20100101 Firefox/137.0"];
 const Methods = [
                  "GET", 
                  "HEAD", 
