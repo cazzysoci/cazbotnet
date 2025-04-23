@@ -10,8 +10,12 @@ fy = Fore.YELLOW
 fw = Fore.WHITE
 fre = Fore.RESET
 
-list = [
+list = [ 
+'https://raw.githubusercontent.com/ErcinDedeoglu/proxies/main/proxies/http.txt',
+'https://raw.githubusercontent.com/ErcinDedeoglu/proxies/main/proxies/https.txt',
+'https://raw.githubusercontent.com/ErcinDedeoglu/proxies/main/proxies/socks5.txt',
 'https://raw.githubusercontent.com/roosterkid/openproxylist/main/HTTPS_RAW.txt',
+'https://raw.githubusercontent.com/vakhov/fresh-proxy-list/master/https.txt',
 'https://raw.githubusercontent.com/TheSpeedX/SOCKS-List/master/socks5.txt',
 'https://raw.githubusercontent.com/TheSpeedX/SOCKS-List/master/http.txt',
 'https://raw.githubusercontent.com/MuRongPIG/Proxy-Master/main/http.txt',
@@ -23,37 +27,14 @@ list = [
 'https://raw.githubusercontent.com/ShiftyTR/Proxy-List/master/http.txt',
 'https://raw.githubusercontent.com/ShiftyTR/Proxy-List/master/https.txt',
 'https://raw.githubusercontent.com/mmpx12/proxy-list/master/https.txt',
-'https://raw.githubusercontent.com/opsxcq/proxy-list/master/list.txt',
-'https://raw.githubusercontent.com/Anonym0usWork1221/Free-Proxies/main/proxy_files/https_proxies.txt',
-'https://api.openproxylist.xyz/http.txt',
-'https://api.proxyscrape.com/v2/?request=displayproxies',
 'https://api.proxyscrape.com/?request=displayproxies&proxytype=http',
 'https://api.proxyscrape.com/v2/?request=getproxies&protocol=http&timeout=10000&country=all&ssl=all&anonymity=all',
 'https://www.proxydocker.com/en/proxylist/download?email=noshare&country=all&city=all&port=all&type=all&anonymity=all&state=all&need=all',
 'https://api.proxyscrape.com/v2/?request=getproxies&protocol=http&timeout=10000&country=all&ssl=all&anonymity=anonymous',
-'http://worm.rip/http.txt',
-'https://proxyspace.pro/http.txt',
-'https://multiproxy.org/txt_all/proxy.txt',
-'https://proxy-spider.com/api/proxies.example.txt',
-"https://raw.githubusercontent.com/mmpx12/proxy-list/refs/heads/master/http.txt",
-"https://raw.githubusercontent.com/MuRongPIG/Proxy-Master/refs/heads/main/http_checked.txt",
-"https://raw.githubusercontent.com/MuRongPIG/Proxy-Master/refs/heads/main/http.txt",
-"https://raw.githubusercontent.com/MuRongPIG/Proxy-Master/refs/heads/main/socks5_checked.txt",
-"https://raw.githubusercontent.com/ErcinDedeoglu/proxies/main/proxies/socks4.txt",
-"https://raw.githubusercontent.com/tuanminpay/live-proxy/master/socks4.txt",
-'https://raw.githubusercontent.com/jepluk/PROXYLIST/main/all.json',
-'https://raw.githubusercontent.com/ProxyScraper/ProxyScraper/refs/heads/main/http.txt',
-'https://raw.githubusercontent.com/Isloka/proxyscraper/refs/heads/main/proxies/http.txt',
-'https://raw.githubusercontent.com/ErcinDedeoglu/proxies/main/proxies/http.txt',
-'https://raw.githubusercontent.com/ErcinDedeoglu/proxies/main/proxies/https.txt',
-'https://raw.githubusercontent.com/vakhov/fresh-proxy-list/refs/heads/master/http.txt',
-'https://raw.githubusercontent.com/vakhov/fresh-proxy-list/refs/heads/master/https.txt',
-'https://raw.githubusercontent.com/MrMarble/proxy-list/refs/heads/main/all.txt',
-'https://raw.githubusercontent.com/berkay-digital/Proxy-Scraper/refs/heads/main/proxies.txt',
+'https://raw.githubusercontent.com/vakhov/fresh-proxy-list/master/socks5.txt',
 'https://spys.one/free-proxy-list/',
 'https://www.proxy-list.download/api/v1/get?type=http&anon=elite&country=US',
 'https://www.proxy-list.download/api/v1/get?type=http&anon=transparent&country=US',
-'https://spys.me/socks.txt',
 ]  
          
 
