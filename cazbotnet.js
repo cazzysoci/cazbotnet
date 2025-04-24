@@ -442,6 +442,7 @@ const sig = [
              "ecdsa_secp521r1_sha512"];
 const pathts = [
                 "*/*",
+                "*",
                 "/homepage",
                 "?id=",
                 "?id",
@@ -738,9 +739,11 @@ const accept_header = [
                        'text/html; charset=utf-8',
                        'cf-chl: IY6DV.5OC.NkIMIrZb958FLBf2j9hV3gl.yPEbo7jKU-1745330756-1.1.1.1-.OZdojSr5j7GXjFNEu66dFeXcvbLfF_UFpWd22fRmbHjcvmbMcnPJJ.T2o_0qZ8v',
                        'cf-chl-ra: 0',
+                       'X-OB-STG,X-OB-PRD',
                        'Origin: https://challenges.cloudflare.com',
                        'Alt-Used: challenges.cloudflare.com',
                        'Sec-Fetch-Dest: empty',
+                       "*",
                        'Sec-Fetch-Mode: cors',
                        'Sec-Fetch-Site: same-origin',
                        'TE: trailers',
@@ -985,6 +988,7 @@ const lang_header = [
                      "zu-ZA,zu;q=0.8"];
 const encoding_header = [
                          "*/*",
+                         'X-OB-STG,X-OB-PRD',
                          "gzip, deflate, br", 
                          "gzip, deflate, br, zstd", 
                          "compress, gzip", "deflate, gzip", 
@@ -1014,6 +1018,21 @@ const encoding_header = [
                          "deflate"];
 const control_header = [
 	                     '?1',
+                       'max-age=604800',
+                       'private, max-age=0, no-cache, no-store',
+                       '*',
+                       'max-age=14400',
+                       'same-site',
+                       'no-cors',
+                       'GET,POST',
+                       'X-OB-STG,X-OB-PRD',
+                       'private, no-transform, max-age=604800',
+                       'no-cache,no-store,must-revalidate',
+                       'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000',
+                       'max-age=536818',
+                       'public, max-age=536818',
+                       'Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding',
+                       'max-age=2592000',
                        'webp',
                        'keep-alive',
                        'max-age=600',
@@ -1201,7 +1220,9 @@ const control_header = [
                        "X-Shipping-Cost: $10.00", 
                        "X-Subscription-Status: active", 
                        "X-Subscription-Type: premium", 
-                       "Sec-CH-UA,Sec-CH-UA-Arch,Sec-CH-UA-Bitness,Sec-CH-UA-Full-Version-List,Sec-CH-UA-Mobile,Sec-CH-UA-Model,Sec-CH-UA-Platform,Sec-CH-UA-Platform-Version,Sec-CH-UA-WoW64"];
+                       "public, max-age=536829",
+                       "Sec-CH-UA,Sec-CH-UA-Arch,Sec-CH-UA-Bitness,Sec-CH-UA-Full-Version-List,Sec-CH-UA-Mobile,Sec-CH-UA-Model,Sec-CH-UA-Platform,Sec-CH-UA-Platform-Version,Sec-CH-UA-WoW64",
+                       "Sec-CH-UA,Sec-CH-UA-Arch,Sec-CH-UA-Bitness,Sec-CH-UA-Mobile,Sec-CH-UA-Model,Sec-CH-UA-Platform,Sec-CH-UA-Full-Version-List,Sec-CH-UA-Platform-Version"];
 const refers = [
                 "https://www.mozilla.org/en-US/firefox/136.0.4/releasenotes/",
                 "https://cloudflare.com/",
