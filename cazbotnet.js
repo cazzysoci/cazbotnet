@@ -746,6 +746,7 @@ const accept_header = [
                        "*",
                        "text/css,*/*;q=0.1",
                        'Sec-Fetch-Mode: cors',
+                       'br',
                        'Sec-Fetch-Site: same-origin',
                        'TE: trailers',
                        'server-timing: cfExtPri',
@@ -991,7 +992,10 @@ const lang_header = [
                      "zu-ZA,zu;q=0.8"];
 const encoding_header = [
                          "*/*",
+                         'Accept-Encoding',
+                         'br',
                          "zstd",
+                         "identity;q=1, *;q=0",
                          'X-OB-STG,X-OB-PRD',
                          "gzip, deflate, br", 
                          "gzip, deflate, br, zstd", 
@@ -1023,6 +1027,11 @@ const encoding_header = [
 const control_header = [
 	                     '?1',
                        'max-age=604800',
+                       'br',
+                       '10368000',
+                       'Accept-Encoding',
+                       '10368000',
+                       '10767543',
                        'max-age=2592000',
                        '604800',
                        '2592000',
