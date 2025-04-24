@@ -770,6 +770,7 @@ const accept_header = [
                        'Referer: https://www.example.com',
                        'Upgrade-Insecure-Requests: 1',
                        'DNT: 1',
+                       'webp',
                        'Accept-Encoding: gzip, deflate, br',
                        'cache-control: private, max-age=0, no-store, no-cache, must-revalidate, post-check=0, pre-check=0',
                        'Cache-Control: max-age=0',
@@ -1008,10 +1009,12 @@ const encoding_header = [
                          "compress", 
                          "gzip, deflate, br", 
                          "deflate", 
+                         'webp',
                          "gzip, deflate, lzma, sdch", 
                          "deflate"];
 const control_header = [
 	                     '?1',
+                       'webp',
                        'keep-alive',
                        'max-age=600',
                        'Accept-Encoding',
@@ -2129,6 +2132,7 @@ const browsers = [
                 "Samsung Internet", 
                 "WebView Android"];  
 const sechuas = [
+                "?0",
                 "Android", 
                 "Chrome OS", 
                 "Chromium OS", 
