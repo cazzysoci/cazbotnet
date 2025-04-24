@@ -2225,7 +2225,7 @@ headers.accept = accept;
 headers['sec-fetch-mode'] = "navigate";
 headers["sec-fetch-dest"] = "document";
 headers["sec-fetch-user"] = '?1';
-headers.cookie = ["cf_clearance=" + randstr(0x20) + '.' + randstr(0xa) + '-' + randstr(0xa) + '-1.0.1.1-' + randstr(0xb) + '_vs_V.' + randstr(0x15) + '_' + randstr(0x2f), "?__cf_chl_tk=", "?_cf_chl_rt_tk=" + randayat(0x2b) + '-' + randnombor(0xa) + "-0.0.1.1" + randnombor(0x4)];
+headers.cookie = ["cf_clearance=" + randstr(0x20) + '.' + randstr(0xa) + '-' + randstr(0xa) + '-1.0.1.1-' + randstr(0xb) + '_vs_V.' + randstr(0x15) + '_' + randstr(0x2f), "?__cf_chl_tk=", "?__cf_chl_rt_tk=" + randayat(0x2b) + '-' + randnombor(0xa) + "-0.0.1.1" + randnombor(0x4)];
 headers["sec-fetch-site"] = "none";
 headers['x-requested-with'] = "XMLHttpRequest";
 headers['X-Cache'] = "HIT";
