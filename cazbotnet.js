@@ -441,6 +441,7 @@ const sig = [
              "sm2sig_sm3",
              "ecdsa_secp521r1_sha512"];
 const pathts = [
+                "/",
                 "view_video.php?viewkey=",
                 "/view_video.php?viewkey=",
                 "view_video.php",
@@ -1037,6 +1038,18 @@ const encoding_header = [
                          "deflate"];
 const control_header = [
 	                     '?1',
+                       '21600',
+                       'bytes',
+                       '4483346',
+                       'max-age=31536000',
+                       '604800',
+                       '17170',
+                       '31536000',
+                       'max-age=0',
+                       '0',
+                       'h3=":443"; ma=86400',
+                       '7200',
+                       'max-age=7200',
                        'max-age=604800',
                        'br',
                        '10368000',
@@ -1255,6 +1268,7 @@ const control_header = [
                        "X-Subscription-Status: active", 
                        "X-Subscription-Type: premium", 
                        "public, max-age=536829",
+                       "Sec-CH-UA,Sec-CH-UA-Arch,Sec-CH-UA-Full-Version,Sec-CH-UA-Full-Version-List,Sec-CH-UA-Model,Sec-CH-UA-Platform,Sec-CH-UA-Platform-Version",
                        "Sec-CH-UA,Sec-CH-UA-Arch,Sec-CH-UA-Bitness,Sec-CH-UA-Full-Version-List,Sec-CH-UA-Mobile,Sec-CH-UA-Model,Sec-CH-UA-Platform,Sec-CH-UA-Platform-Version,Sec-CH-UA-WoW64",
                        "Sec-CH-UA,Sec-CH-UA-Arch,Sec-CH-UA-Bitness,Sec-CH-UA-Mobile,Sec-CH-UA-Model,Sec-CH-UA-Platform,Sec-CH-UA-Full-Version-List,Sec-CH-UA-Platform-Version"];
 const refers = [
@@ -2200,12 +2214,16 @@ const sechuas = [
                 "macOS", 
                 "Unknown", 
                 "Windows"];
+const accept_ranges = [
+                      "bytes"
+                   ];
 var CazzySoci = Methods[Math.floor(Math.random() * Methods.length)];
 var randomReferer = refers[Math.floor(Math.random() * refers.length)];
 var cipper = cplist[Math.floor(Math.floor(Math.random() * cplist.length))];
 var siga = sig[Math.floor(Math.floor(Math.random() * sig.length))];
 var platform1 = platform[Math.floor(Math.random() * platform.length)];
 var versi = version[Math.floor(Math.random() * version.length)];
+var accptranges = accept_ranges[Math.floor(Math.floor(Math.random() * accept_ranges.length))];
 var uap1 = userAgents[Math.floor(Math.floor(Math.random() * userAgents.length))];
 var accept = accept_header[Math.floor(Math.floor(Math.random() * accept_header.length))];
 var lang = lang_header[Math.floor(Math.floor(Math.random() * lang_header.length))];
@@ -2278,6 +2296,7 @@ headers["cache-control"] = control;
 headers['X-Forwarded-For'] = spoofed;
 headers["sec-ch-ua"] = "\"Not A(Brand\";v=\"99\", \"Google Chrome\";v=\"121\", \"Chromium\";v=\"121\"";
 versi;
+headers["accept-ranges"] = accptranges[Math.floor(Math.random() * accptranges.length)];
 headers["sec-ch-ua-mobile"] = sechuas[Math.floor(Math.random() * sechuas.length)];
 headers['sec-ch-ua-platform'] = browsers[Math.floor(Math.random() * browsers.length)] + platform1;
 headers["accept-language"] = lang;
