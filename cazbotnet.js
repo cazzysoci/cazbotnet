@@ -441,6 +441,12 @@ const sig = [
              "sm2sig_sm3",
              "ecdsa_secp521r1_sha512"];
 const pathts = [
+                "view_video.php?viewkey=",
+                "/view_video.php?viewkey=",
+                "view_video.php",
+                "view_video.php?",
+                "/view_video.php?",
+                "/view_video.php",
                 "*/*",
                 "*",
                 "/homepage",
@@ -479,6 +485,10 @@ const pathts = [
                 "#cfturnstile-js",
                 "#cfturnstile-woo-js-js",
                 "cf.turnstile.u",
+                "?__cf_chl_rt_tk=54c5yBAqZo5xmOYn.2o9pSB4VqbuK0YlUNfoZBVxnWo-1745562753-1.0.1.1-HTK_pI5Ts0L0gTVtS2AcFfL_nsAaOR0wdQViZRmlrWw",
+                "?__cf_chl_rt_tk=G8V8x7kQgXv1buL5s1.g6b4eEZHmCHn9SsJVtPhw0rk-1745562464-1.0.1.1-eCE5c2AgE6io50aT_st2KGobWNSZ_vSdJfUJ4e0HAuM",
+                "?__cf_chl_rt_tk=C02gyBoe3MkM_C8rebrFfTVclRuCakWMILW1ejZIdlw-1745562316-1.0.1.1-ZF0KS0j2oqdzCJwANnKUK8m.Y1EVz_wWxN.Su15t7bo",
+                "?__cf_chl_tk=kFoO9R0nT1659gGY_JpKAlP27OCjnKSICVXSmEuyYpE-1745562215-1.0.1.1-FmHNl92aMwqwTGbqBleUNPIU7uawsw86Wf5X0GNhL68",
                 "?__cf_chl_tk=V0gHmpGB_XzSs.8hyrlf.xMbIrYR7CIXMWaHbYDk4qY-1713811672-0.0.1.1-1514", 
                 "?__cf_chl_tk=ZpDDzirt54EoyEeNjwwGO_FZktYyR0QxXRz9Vt_egvk-1711220025-0.0.1.1-1471", 
                 "?__cf_chl_tk=2QI_clISOivyUmvBJ4fkVroBhLME3TJv3_2coOv7BXc-1711307038-0.0.1.1-1471", 
@@ -2132,6 +2142,7 @@ const platform = [
                   "Smart TV", 
                   "Other"];
 const version = [
+                 "19.0.0",
                  "\"Chromium\";v=\"100\", \"Google Chrome\";v=\"100\"", 
                  "\"Chromium\";v=\"109\", \"Google Chrome\";v=\"109\"", 
                  "\"Chromium\";v=\"121\", \"Google Chrome\";v=\"121\", \"Opera GX\";v=\"106\"", 
@@ -2176,7 +2187,10 @@ const browsers = [
                 "Samsung Internet", 
                 "WebView Android"];  
 const sechuas = [
+                "",
                 "?0",
+                "117.0.5408.197",
+                "19.0.0",
                 "Android", 
                 "Chrome OS", 
                 "Chromium OS", 
