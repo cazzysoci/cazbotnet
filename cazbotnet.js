@@ -449,6 +449,7 @@ const pathts = [
                 "/view_video.php",
                 "*/*",
                 "*",
+                "#",
                 "/homepage",
                 "?id=",
                 "?id",
