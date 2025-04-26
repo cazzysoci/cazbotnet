@@ -16,7 +16,7 @@ module.exports = function Cloudflare() {
 
 var privacyPassSupport = true;
     function useNewToken() {
-        privacypass(l7.target);
+        privacypass(l7.targetURL);
         console.log('[cloudflare-bypass ~ privacypass]: generated new token');
     }
 
@@ -30,7 +30,7 @@ var privacyPassSupport = true;
         var cookie = "";
         if (l7.firewall[1] == 'captcha' || force && privacyPassSupport) {
             request.get({
-                targetURL: l7.target + "?_asds=" + num,
+                targetURL: l7.targetURL + "?_asds=" + num,
                 gzip: true,
                 proxy: proxies,
                 headers: {
@@ -60,7 +60,7 @@ var privacyPassSupport = true;
                 cookie = res.headers['set-cookie'].shift().split(';').shift();
                 if (l7.firewall[1] == 'captcha' && privacyPassSupport || force && privacyPassSupport) {
                     cloudscraper.get({
-                        targetURL: l7.target + "?_asds=" + num,
+                        targetURL: l7.targetURL + "?_asds=" + num,
                         gzip: true,
                         proxy: proxies,
                         headers: {
@@ -79,7 +79,7 @@ var privacyPassSupport = true;
                         if (res.headers['set-cookie']) {
                             cookie += '; ' + res.headers['set-cookie'].shift().split(';').shift();
                             cloudscraper.get({
-                                targetURL: l7.target + "?_asds=" + num,
+                                targetURL: l7.targetURL + "?_asds=" + num,
                                 proxy: proxies,
                                 headers: {
                                     'Connection': 'Keep-Alive',
@@ -124,7 +124,7 @@ var privacyPassSupport = true;
                     });
                 } else {
                     cloudscraper.get({
-                        targetURL: l7.target + "?_asds=" + num,
+                        targetURL: l7.targetURL + "?_asds=" + num,
                         proxy: proxies,
                         headers: {
                             'Connection': 'Keep-Alive',
@@ -148,7 +148,7 @@ var privacyPassSupport = true;
             });
         } else if (l7.firewall[1] == 'uam' && privacyPassSupport == false) {
             cloudscraper.get({
-                targetURL: l7.target + "?_asds=" + num,
+                targetURL: l7.targetURL + "?_asds=" + num,
                 proxy: proxies,
                 headers: {
                     'Upgrade-Insecure-Requests': 1,
@@ -173,7 +173,7 @@ var privacyPassSupport = true;
             });
         } else {
             cloudscraper.get({
-                targetURL: l7.target + "?_asds=" + num,
+                targetURL: l7.targetURL + "?_asds=" + num,
                 gzip: true,
                 proxy: proxies,
                 headers: {
