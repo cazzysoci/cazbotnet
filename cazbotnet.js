@@ -487,6 +487,7 @@ const pathts = [
                 "#cfturnstile-js",
                 "#cfturnstile-woo-js-js",
                 "cf.turnstile.u",
+                "?__cf_chl_rt_tk=RYX8ur1ZRxF_1d0vBYpv.FTWWK2LzW2YM.a0dxrzK1c-1745637475-1.0.1.1-YhgG_lj16ctWkDEFc7Y24Hm4ad0ldl2UaQdjEjlzBX0",
                 "?__cf_chl_rt_tk=54c5yBAqZo5xmOYn.2o9pSB4VqbuK0YlUNfoZBVxnWo-1745562753-1.0.1.1-HTK_pI5Ts0L0gTVtS2AcFfL_nsAaOR0wdQViZRmlrWw",
                 "?__cf_chl_rt_tk=G8V8x7kQgXv1buL5s1.g6b4eEZHmCHn9SsJVtPhw0rk-1745562464-1.0.1.1-eCE5c2AgE6io50aT_st2KGobWNSZ_vSdJfUJ4e0HAuM",
                 "?__cf_chl_rt_tk=C02gyBoe3MkM_C8rebrFfTVclRuCakWMILW1ejZIdlw-1745562316-1.0.1.1-ZF0KS0j2oqdzCJwANnKUK8m.Y1EVz_wWxN.Su15t7bo",
