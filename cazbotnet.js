@@ -442,6 +442,7 @@ const sig = [
              "ecdsa_secp521r1_sha512"];
 const pathts = [
                 "/",
+                "/video",
                 "view_video.php?viewkey=",
                 "/view_video.php?viewkey=",
                 "view_video.php",
