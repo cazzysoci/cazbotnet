@@ -298,12 +298,8 @@ function getTitleFromHTML(_0x330231) {
   return "Not Found";
 }
 
-function randomElement(elements) {
-  return elements[randomIntn(0, elements.length)];
-} 
-
-function randomIntn(min, max) {
-  return Math.floor(Math.random() * (max - min) + min);
+function randomIntn(_0x37244a, _0x5e8397) {
+  return Math.floor(Math.random() * (_0x5e8397 - _0x37244a) + _0x37244a);
 }
 
 function randstr(_0x6ba01d) {
@@ -340,7 +336,6 @@ function randomElement(_0x21da9f) {
 const ip_spoof = () => {
   return Math.floor(Math.random() * 100) + '.' + Math.floor(Math.random() * 100) + '.' + Math.floor(Math.random() * 100) + '.' + Math.floor(Math.random() * 100);
 };
-const  randomIntn = randomElement(proxies);
 const spoofed = ip_spoof();
 const args = {
   'target': process.argv[2],
