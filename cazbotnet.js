@@ -300,36 +300,35 @@ function getTitleFromHTML(_0x330231) {
 function randomIntn(_0x37244a, _0x5e8397) {
   return Math.floor(Math.random() * (_0x5e8397 - _0x37244a) + _0x37244a);
 }
-function randstr(length) {
-  let randomString = ''; 
-  const charactersLength = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".length; 
-    for (let i = 0; i < length; i++) {
-        randomString += "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".charAt(Math.floor(Math.random() * charactersLength));
-    }
-
-    return randomString; 
+function randstr(_0x6ba01d) {
+  var _0x404460 = '';
+  var _0x1b31e9 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".length;
+  for (var _0x3bc4bc = 0x0; _0x3bc4bc < _0x6ba01d; _0x3bc4bc++) {
+    _0x404460 += "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".charAt(Math.floor(Math.random() * _0x1b31e9));
+  }
+  ;
+  return _0x404460;
 }
-function randayat(length) {
-  let randomAlphabeticString = '';
-  const alphabetLength = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".length;
-    for (let i = 0; i < length; i++) {
-        randomAlphabeticString += "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".charAt(Math.floor(Math.random() * alphabetLength));
-    }
-
-    return randomAlphabeticString; 
+function randayat(_0x19c864) {
+  var _0x1175de = '';
+  var _0x40e4e7 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".length;
+  for (var _0x1eada6 = 0x0; _0x1eada6 < _0x19c864; _0x1eada6++) {
+    _0x1175de += "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".charAt(Math.floor(Math.random() * _0x40e4e7));
+  }
+  ;
+  return _0x1175de;
 }
-function randnombor(length) {
-  let randomNumberString = '';
-  const digitsLength = '0123456789'.length;
-    for (let i = 0; i < length; i++) {
-        randomNumberString += '0123456789'.charAt(Math.floor(Math.random() * digitsLength));
-    }
-
-    return randomNumberString; 
+function randnombor(_0x3af870) {
+  var _0x5c028c = '';
+  var _0x46ebb3 = '0123456789'.length;
+  for (var _0x3e898c = 0x0; _0x3e898c < _0x3af870; _0x3e898c++) {
+    _0x5c028c += '0123456789'.charAt(Math.floor(Math.random() * _0x46ebb3));
+  }
+  ;
+  return _0x5c028c;
 }
-function getRandomElement(elements) {
-  const randomIndex = Math.floor(Math.random() * elements.length);
-  return elements[randomIndex];
+function randomElement(_0x21da9f) {
+  return _0x21da9f[Math.floor(Math.random() * (_0x21da9f.length - 0x0) + 0x0)];
 }
 const ip_spoof = () => {
   return Math.floor(Math.random() * 100) + '.' + Math.floor(Math.random() * 100) + '.' + Math.floor(Math.random() * 100) + '.' + Math.floor(Math.random() * 100);
@@ -2376,24 +2375,7 @@ const sechuas = [
 const accept_ranges = [
                       "bytes"
                    ];
-const xFrameOptionsValues = [
-                    "DENY",
-                    "SAMEORIGIN",
-                    "ALLOW-FROM https://google.com"
-                  ];
-const xXSSProtectionValues = [
-                    "0",
-                    "1",
-                    "1; mode=block"
-                  ];
-                  function getRandomElement(arr) {
-                    return arr[Math.floor(Math.random() * arr.length)];
-                  }
-                  
-const randomHeaders = {
-                    "x-frame-options": getRandomElement(xFrameOptionsValues),
-                    "x-xss-protection": getRandomElement(xXSSProtectionValues)
-                  };
+
 var CazzySoci = Methods[Math.floor(Math.random() * Methods.length)];
 var randomReferer = refers[Math.floor(Math.random() * refers.length)];
 var cipper = cplist[Math.floor(Math.floor(Math.random() * cplist.length))];
