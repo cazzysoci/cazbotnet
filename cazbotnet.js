@@ -2376,7 +2376,7 @@ const sechuas = [
 const accept_ranges = [
                       "bytes"
                    ];
-                   const xFrameOptionsValues = [
+const xFrameOptionsValues = [
                     "DENY",
                     "SAMEORIGIN",
                     "ALLOW-FROM https://google.com"
@@ -2390,7 +2390,7 @@ const xXSSProtectionValues = [
                     return arr[Math.floor(Math.random() * arr.length)];
                   }
                   
-                  const randomHeaders = {
+const randomHeaders = {
                     "x-frame-options": getRandomElement(xFrameOptionsValues),
                     "x-xss-protection": getRandomElement(xXSSProtectionValues)
                   };
