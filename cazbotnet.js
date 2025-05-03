@@ -352,19 +352,16 @@ function spoofed(ip, privateRanges) {
   return false;
 }
 
-const spoofedIP = spoofed();
-console.log(spoofedIP);
+function generateSpoofedIP() {
+  return Math.floor(Math.random() * 256) + '.' + 
+         Math.floor(Math.random() * 256) + '.' + 
+         Math.floor(Math.random() * 256) + '.' + 
+         Math.floor(Math.random() * 256);
 
-const generateSpoofedIP = function() {
-  return Math.floor(Math.random() * 100) + '.' +
-         Math.floor(Math.random() * 100) + '.' +
-         Math.floor(Math.random() * 100) + '.' +
-         Math.floor(Math.random() * 100);
+
 };
 
-const randomSpoofedIP = generateSpoofedIP();
-console.log(spoofed(randomSpoofedIP));
-
+const spoofed = generateSpoofedIP();
 const args = {
   'target': process.argv[2],
   'time': ~~process.argv[3],
