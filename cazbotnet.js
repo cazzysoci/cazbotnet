@@ -356,7 +356,6 @@ function spoofed(ip, privateRanges) {
   return false;
 };
 
-const spoofed = generateSpoofedIP();
 const args = {
   'target': process.argv[2],
   'time': ~~process.argv[3],
