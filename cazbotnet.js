@@ -7,7 +7,6 @@ const fs = require("fs");
 const crypto = require("crypto");
 const axios = require('axios');
 const https = require('https');
-const ipaddr = require('ipaddr.js');
 const childProcess = require('child_process');
 
 module.exports = function Cloudflare() {
@@ -341,6 +340,11 @@ function spoofed(ip, privateRanges) {
   }
   if (!privateRanges || !Array.isArray(privateRanges)) {
     privateRanges = ['10.0.0.0/8', '172.16.0.0/12', '192.168.0.0/16'];
+  return Math.floor(Math.random() * 256) + '.' + 
+         Math.floor(Math.random() * 256) + '.' + 
+         Math.floor(Math.random() * 256) + '.' + 
+         Math.floor(Math.random() * 256);
+
   }
   const ipRange = ipaddr.parse(ip);
   for (let i = 0; i < privateRanges.length; i++) {
@@ -350,15 +354,6 @@ function spoofed(ip, privateRanges) {
     }
   }
   return false;
-}
-
-function generateSpoofedIP() {
-  return Math.floor(Math.random() * 256) + '.' + 
-         Math.floor(Math.random() * 256) + '.' + 
-         Math.floor(Math.random() * 256) + '.' + 
-         Math.floor(Math.random() * 256);
-
-
 };
 
 const spoofed = generateSpoofedIP();
