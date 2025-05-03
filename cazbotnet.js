@@ -330,6 +330,9 @@ function randnombor(_0x3af870) {
   return _0x5c028c;
 }
 
+function randomElement(_0x21da9f) {
+  return _0x21da9f[Math.floor(Math.random() * (_0x21da9f.length - 0x0) + 0x0)];
+} 
 
 function spoofed(ip, privateRanges) {
   if (!ip) {
@@ -348,13 +351,19 @@ function spoofed(ip, privateRanges) {
   return false;
 }
 
-function randomElement(_0x21da9f) {
-  return _0x21da9f[Math.floor(Math.random() * (_0x21da9f.length - 0x0) + 0x0)];
-} 
+const spoofedIP = spoofed();
+console.log(spoofedIP);
 
-const spoofed = () => {
-  return Math.floor(Math.random() * 100) + '.' + Math.floor(Math.random() * 100) + '.' + Math.floor(Math.random() * 100) + '.' + Math.floor(Math.random() * 100);
+const generateSpoofedIP = function() {
+  return Math.floor(Math.random() * 100) + '.' +
+         Math.floor(Math.random() * 100) + '.' +
+         Math.floor(Math.random() * 100) + '.' +
+         Math.floor(Math.random() * 100);
 };
+
+const randomSpoofedIP = generateSpoofedIP();
+console.log(spoofed(randomSpoofedIP));
+
 const args = {
   'target': process.argv[2],
   'time': ~~process.argv[3],
