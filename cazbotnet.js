@@ -10,7 +10,7 @@ const https = require('https');
 const childProcess = require('child_process');
 
 module.exports = function Cloudflare() {
-  const privacypass = require('./privacypass'),
+  const privacypass = require('./privacypass.js'),
       cloudscraper = require('cloudscraper'),
       request = require('request');
 
