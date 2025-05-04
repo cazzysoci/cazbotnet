@@ -7,6 +7,7 @@ const fs = require("fs");
 const crypto = require("crypto");
 const axios = require('axios');
 const https = require('https');
+const ipaddr = require('ipaddr.js'); 
 const childProcess = require('child_process');
 
 module.exports = function Cloudflare() {
