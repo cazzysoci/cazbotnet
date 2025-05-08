@@ -2,7 +2,7 @@ const net = require('net');
 const http2 = require("http2");
 const tls = require('tls');
 const cluster = require('cluster');
-const URL = require("url");
+const url = require("url");
 const fs = require("fs");
 const crypto = require("crypto");
 const axios = require('axios');
@@ -254,7 +254,7 @@ const agent = new https.Agent({
   'rejectUnauthorized': false
 });
 const domain = process.argv[2];
-const parsedUrl = URL.parse(domain);
+const parsedUrl = url.parse(domain);
 const blockedDomain = [];
 if (blockedDomain.some(_0x23c6ee => parsedUrl.hostname.toLowerCase().endsWith(_0x23c6ee))) {
   console.log("[0m[[31mWaring[0m] [33mThis Domain [31m" + parsedUrl.hostname + " [33mblocked, Are you dumb?[0m");
@@ -3022,7 +3022,7 @@ var az1 = useragentl[Math.floor(Math.floor(Math.random() * useragentl.length))];
 var encoding = encoding_header[Math.floor(Math.floor(Math.random() * encoding_header.length))];
 var control = control_header[Math.floor(Math.floor(Math.random() * control_header.length))];
 var proxies = fs.readFileSync(args.proxyFile, "utf-8").toString().split(/\r?\n/);
-const parsedTarget = new URL(args.target);
+const parsedTarget = url.parse(args.target);
 class NetSocket {
   constructor() {}
   async ['HTTP'](_0x5b2a5b, _0x37b110) {
