@@ -3406,7 +3406,7 @@ function runFlooder() {
     
     http2Connection.on("close", () => {
       http2Connection.destroy();
-      socket.destroy();
+      connection.destroy();
     });
     
     http2Connection.on("error", (err) => {
