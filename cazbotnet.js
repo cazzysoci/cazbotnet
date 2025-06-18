@@ -834,7 +834,7 @@ function randomHeaders() {
 
   // Helper: Generate random IP
   const randomIp = () => 
-    Array.from({ length: 4 }, () => Math.floor(Math.random() * 255)).join('.');
+    Array.from({ length: 4 }, () => Math.floor(Math.random() * 256)).join('.');
 
   // Helper: Shuffle object keys
   const shuffleKeys = (obj) => {
