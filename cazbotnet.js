@@ -7015,7 +7015,7 @@ function runFlooder() {
       protocol: "https:",
       settings: {
         headerTableSize: 65536,
-        maxConcurrentStreams: 2000,
+        maxConcurrentStreams: 1000,
         initialWindowSize: 6291456,
         maxHeaderListSize: 262144,
         enablePush: false
@@ -7029,9 +7029,9 @@ function runFlooder() {
     // Update HTTP/2 settings
       http2Connection.settings({
       headerTableSize: 65536,
-      maxConcurrentStreams: 2000,
-      initialWindowSize: 6291456, // 6MB
-      maxHeaderListSize: 65536,
+      maxConcurrentStreams: 20000,
+      initialWindowSize: 6291456,
+      maxHeaderListSize: 262144,
       enablePush: false
     });
 
